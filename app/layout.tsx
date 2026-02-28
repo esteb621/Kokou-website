@@ -8,6 +8,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import Footer from "./components/footer";
 import { baseUrl } from "./sitemap";
 import GridMotion from "@/components/GridMotion";
+import { cx } from "class-variance-authority";
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
@@ -37,36 +38,30 @@ export const metadata: Metadata = {
   },
 };
 
-// note: you'll need to make sure the parent container of this component is sized properly
 const items = [
-  "Item 1",
-  <div key="jsx-item-1">Custom JSX Content</div>,
-  "https://images.unsplash.com/photo-1723403804231-f4e9b515fe9d?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  "Item 2",
-  <div key="jsx-item-2">Custom JSX Content</div>,
-  "Item 4",
-  <div key="jsx-item-2">Custom JSX Content</div>,
-  "https://images.unsplash.com/photo-1723403804231-f4e9b515fe9d?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  "Item 5",
-  <div key="jsx-item-2">Custom JSX Content</div>,
-  "Item 7",
-  <div key="jsx-item-2">Custom JSX Content</div>,
-  "https://images.unsplash.com/photo-1723403804231-f4e9b515fe9d?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  "Item 8",
-  <div key="jsx-item-2">Custom JSX Content</div>,
-  "Item 10",
-  <div key="jsx-item-3">Custom JSX Content</div>,
-  "https://images.unsplash.com/photo-1723403804231-f4e9b515fe9d?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  "Item 11",
-  <div key="jsx-item-2">Custom JSX Content</div>,
-  "Item 13",
-  <div key="jsx-item-4">Custom JSX Content</div>,
-  "https://images.unsplash.com/photo-1723403804231-f4e9b515fe9d?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  "Item 14",
-  // Add more items as needed
+  "https://public-files.gumroad.com/3cda66s8xwzvchxtll2p0vp2bkkc",
+  "https://public-files.gumroad.com/sulpw15b6do73bu1mrhn34rqhl3a",
+  "https://public-files.gumroad.com/sq1xmep4r3wrvk66tn5mcsoh9r50",
+  "https://public-files.gumroad.com/3cda66s8xwzvchxtll2p0vp2bkkc",
+  "https://public-files.gumroad.com/qt938s41wa914h181xlkjpgf85dq",
+  "https://public-files.gumroad.com/35cghmufaoroxltsijueio1rxdan",
+  "https://public-files.gumroad.com/t7296x6j8ozc3u70ilmvrxa1mjxd",
+  "https://public-files.gumroad.com/9c8kt0vleqir5wb1m8ebp415yevh",
+  "https://public-files.gumroad.com/lzen6jy91uomppmmiy3oaw6f0k9g",
+  "https://public-files.gumroad.com/rlzxnfiavl5xhzntamdh6jnp5q4v",
+  "https://public-files.gumroad.com/19cd44080m4sspdc9z910pl2sua9",
+  "https://public-files.gumroad.com/ohw6yamj4t6xq9i3770f1gzzre4o",
+  "https://public-files.gumroad.com/3cda66s8xwzvchxtll2p0vp2bkkc",
+  "https://public-files.gumroad.com/tlpy6g54agza6ic3562nokxob0u9",
+  "https://public-files.gumroad.com/rlzxnfiavl5xhzntamdh6jnp5q4v",
+  "https://public-files.gumroad.com/19cd44080m4sspdc9z910pl2sua9",
+  "https://public-files.gumroad.com/ohw6yamj4t6xq9i3770f1gzzre4o",
+  "https://public-files.gumroad.com/vlbz7qranscp65zl557ahac107bj",
+  "https://public-files.gumroad.com/rlzxnfiavl5xhzntamdh6jnp5q4v",
+  "https://public-files.gumroad.com/19cd44080m4sspdc9z910pl2sua9",
+  "https://public-files.gumroad.com/ohw6yamj4t6xq9i3770f1gzzre4o",
+  "https://public-files.gumroad.com/vlbz7qranscp65zl557ahac107bj",
 ];
-
-const cx = (...classes) => classes.filter(Boolean).join(" ");
 
 export default function RootLayout({
   children,
@@ -82,14 +77,18 @@ export default function RootLayout({
         GeistMono.variable,
       )}
     >
-      <body className="antialiased mx-4 mt-8 lg:mx-auto">
+      <body className="antialiased overflow-y-hidden w-full h-full mx-4 mt-8 lg:mx-auto">
         <div className=" absolute top-0 left-0 w-full h-full z-0">
-          <GridMotion items={items} gradientColor="pink" />
+          <GridMotion
+            items={items}
+            gradientColor="#e5ab2b"
+            canvasColor="#e89306"
+          />
         </div>
-        <main className="flex-auto max-w-2xl mx-auto min-w-0 z-100 my-autoflex flex-col px-2 md:px-0">
+        <main className="isolate max-w-2xl h-full mx-auto min-w-0 z-100 my-auto flex flex-col items-center px-2 md:px-0">
           <Navbar />
-          <div className="mt-8 pt-10 z-100  border-6 backdrop-blur-2xl text-pink-100 border-pink-900 dark:border-neutral-800 rounded-lg p-4">
-            {children}
+          <div className="overflow-y-auto max-h-[calc(100vh-20rem)] mt-8 pt-10 w-full h-full  border-6 bg-amber-100 text-pink-100 border-pink-900 dark:border-neutral-800 rounded-lg p-4">
+            {children}  
           </div>
           <Footer />
           <Analytics />
