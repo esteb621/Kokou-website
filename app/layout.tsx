@@ -7,8 +7,10 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Footer from "./components/footer";
 import { baseUrl } from "./sitemap";
-import GridMotion from "@/components/GridMotion";
 import { cx } from "class-variance-authority";
+import Grainient from "@/components/Grainient";
+import Image from "next/image";
+import { motion } from "motion/react"
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
@@ -77,18 +79,45 @@ export default function RootLayout({
         GeistMono.variable,
       )}
     >
-      <body className="antialiased overflow-y-hidden w-full h-full mx-4 mt-8 lg:mx-auto">
-        <div className=" absolute top-0 left-0 w-full h-full z-0">
-          <GridMotion
-            items={items}
-            gradientColor="#e5ab2b"
-            canvasColor="#e89306"
+      <body className="antialiased overflow-hidden w-full h-screen relative">
+        <div className="absolute top-0 left-0 w-full h-full z-0">
+          <Grainient
+            color1="#00E0C9"
+            color2="#11EAFF"
+            color3="#00BE46"
+            timeSpeed={1.5}
+            colorBalance={0}
+            warpStrength={2.5}
+            warpFrequency={9}
+            warpSpeed={2}
+            warpAmplitude={65}
+            blendAngle={90}
+            blendSoftness={0}
+            rotationAmount={500}
+            noiseScale={2}
+            grainAmount={0.1}
+            grainScale={2}
+            grainAnimated={false}
+            contrast={1.5}
+            gamma={1}
+            saturation={1}
+            centerX={0}
+            centerY={0}
+            zoom={0.6}
           />
         </div>
-        <main className="isolate max-w-2xl h-full mx-auto min-w-0 z-100 my-auto flex flex-col items-center px-2 md:px-0">
+        <main className="isolate max-w-4xl mx-auto w-full h-full min-w-0 relative z-10 flex flex-col px-4 md:px-0 items-center">
           <Navbar />
-          <div className="overflow-y-auto max-h-[calc(100vh-20rem)] mt-8 pt-10 w-full h-full  border-6 bg-amber-100 text-pink-100 border-pink-900 dark:border-neutral-800 rounded-lg p-4">
-            {children}  
+          <div className="flex-1 mt-16 flex flex-col justify-center w-full h-full">
+            <Image className="absolute z-0 top-10  -right-36" src="/assets/Head_Kokou.png" width={300} height={300} alt="Kokou" />
+            <div
+             className="overflow-y-auto z-1000 max-h-[calc(100vh-16rem)] w-full border-4 bg-[#ffe09d] text-pink-900 min-h-[calc(100vh-30rem)] border-[#7E384E] p-4">
+              {children}  
+            </div>
+            <Image className={`absolute z-1000 bottom-24 -right-16`} src={`/assets/leaf_0.png`} width={300} height={300} alt="Kokou" />
+            <Image className={`absolute z-1000 bottom-24 -right-16`} src={`/assets/leaf_1.png`} width={300} height={300} alt="Kokou" />
+
+
           </div>
           <Footer />
           <Analytics />

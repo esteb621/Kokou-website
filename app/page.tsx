@@ -1,6 +1,3 @@
-import MagicBento from "@/components/MagicBento";
-import { BlogPosts } from "app/components/posts";
-
 export default function Page() {
   return (
     <section className="text-gray-800">

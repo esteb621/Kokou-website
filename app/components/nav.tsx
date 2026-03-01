@@ -26,10 +26,10 @@ export function Navbar() {
       activeHref={pathname}
       className="custom-nav"
       ease="power2.easeOut"
-      baseColor="#000000"
+      baseColor="#7E384E"
       pillColor="#ffffff"
       hoveredPillTextColor="#ffffff"
-      pillTextColor="#000000"
+      pillTextColor="#7E384E"
       initialLoadAnimation={false}
     />
   );
