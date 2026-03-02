@@ -110,17 +110,17 @@ export default function RootLayout({
         <main className="isolate max-w-4xl mx-auto w-full h-full min-w-0 relative z-10 flex flex-col px-4 md:px-0 items-center">
           <Navbar />
           <Image
-            className="absolute z-[1001] top-0 -left-6 pointer-events-none"
+            className="hidden md:block absolute z-[1001] top-0 -left-12 lg:-left-20 pointer-events-none w-24 md:w-32 lg:w-44"
             src="/assets/topivy.png"
-            width={120}
-            height={120}
+            width={170}
+            height={170}
             alt="Top ivy"
           />
           <Image
-            className="absolute z-[1000] top-0 -left-6 pointer-events-none"
+            className="hidden md:block absolute z-[1000] top-0 -left-12 lg:-left-20 pointer-events-none w-24 md:w-32 lg:w-44"
             src="/assets/underivy.png"
-            width={120}
-            height={120}
+            width={170}
+            height={170}
             alt="Under ivy"
           />
           <div className="flex-1 mt-40 flex flex-col justify-center w-full h-full">
@@ -129,7 +129,6 @@ export default function RootLayout({
               direction="vertical"
               reverse={false}
               duration={1.5}
-              
               ease="power3.out"
               initialOpacity={0}
               animateOpacity
@@ -138,36 +137,36 @@ export default function RootLayout({
               delay={0.2}
             >
               <Image
-                className="absolute z-0 -top-32  -right-36"
+                className="hidden md:block absolute z-0 -top-24 -right-28 lg:-top-40 lg:-right-48 pointer-events-none w-48 md:w-64 lg:w-[400px]"
                 src="/assets/1k.png"
-                width={300}
-                height={300}
+                width={400}
+                height={400}
                 alt="Head Kokou"
               />
               <div className="relative w-full">
-                <div className="overflow-y-auto pb-32 pl-12 z-[1000] h-full w-full border-4 bg-[#ffe09d] text-pink-900 min-h-[calc(100vh-20rem)] border-[#7E384E] p-4">
+                <div className="overflow-y-auto pb-32 pl-12 z-[1000] h-full w-full  border-4 bg-[#ffe09d] text-pink-900 min-h-[calc(100vh-20rem)] border-[#7E384E] p-4">
                   {children}
                 </div>
 
                 <Image
-                  className="absolute z-[1001] -bottom-14 -left-24 pointer-events-none"
+                  className="hidden md:block absolute z-[1001] -bottom-12 -left-16 lg:-bottom-[4.5rem] lg:-left-24 pointer-events-none w-28 md:w-40 lg:w-[250px]"
                   src="/assets/2k.png"
-                  width={200}
-                  height={200}
+                  width={250}
+                  height={250}
                   alt="Kokou"
                 />
               </div>
             </AnimatedContent>
           </div>
           <Image
-            className="absolute z-[1001] bottom-20 -right-80 -rotate-20 pointer-events-none"
+            className="hidden lg:block absolute z-[1001] bottom-20 -right-48 xl:-right-72 -rotate-20 pointer-events-none w-40 lg:w-60 xl:w-[300px]"
             src="/assets/aboveleaf.png"
             width={300}
             height={300}
             alt="Kokou"
           />
           <Image
-            className="absolute z-[1000] bottom-20 -right-80 -rotate-20 pointer-events-none"
+            className="hidden lg:block absolute z-[1000] bottom-20 -right-48 xl:-right-72 -rotate-20 pointer-events-none w-40 lg:w-60 xl:w-[300px]"
             src="/assets/underleaf.png"
             width={300}
             height={300}

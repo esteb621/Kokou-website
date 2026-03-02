@@ -1,18 +1,31 @@
-function ArrowIcon() {
+import { siGumroad, siTiktok } from "simple-icons";
+
+function GumroadIcon() {
   return (
     <svg
-      width="12"
-      height="12"
-      viewBox="0 0 12 12"
-      fill="none"
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="currentColor"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path
-        d="M2.07102 11.3494L0.963068 10.2415L9.2017 1.98864H2.83807L2.85227 0.454545H11.8438V9.46023H10.2955L10.3097 3.09659L2.07102 11.3494Z"
-        fill="currentColor"
-      />
+      <path d={siGumroad.path} />
     </svg>
-  )
+  );
+}
+
+function TiktokIcon() {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d={siTiktok.path} />
+    </svg>
+  );
 }
 
 export default function Footer() {
@@ -26,7 +39,7 @@ export default function Footer() {
             target="_blank"
             href="https://gumroad.com/"
           >
-            <ArrowIcon />
+            <GumroadIcon />
             <p className="ml-2 h-7">Gumroad</p>
           </a>
         </li>
@@ -37,7 +50,7 @@ export default function Footer() {
             target="_blank"
             href="https://www.tiktok.com/@kokouuwu"
           >
-            <ArrowIcon />
+            <TiktokIcon />
             <p className="ml-2 h-7">TikTok</p>
           </a>
         </li>
@@ -46,5 +59,5 @@ export default function Footer() {
         © {new Date().getFullYear()} Kokou. All rights reserved.
       </p>
     </footer>
-  )
+  );
 }
