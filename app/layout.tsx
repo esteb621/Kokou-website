@@ -10,7 +10,8 @@ import { baseUrl } from "./sitemap";
 import { cx } from "class-variance-authority";
 import Grainient from "@/components/Grainient";
 import Image from "next/image";
-import { motion } from "motion/react"
+import { motion } from "motion/react";
+import AnimatedContent from "@/components/AnimatedContent";
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
@@ -79,8 +80,8 @@ export default function RootLayout({
         GeistMono.variable,
       )}
     >
-      <body className="antialiased overflow-hidden w-full h-screen relative">
-        <div className="absolute top-0 left-0 w-full h-full z-0">
+      <body className="antialiased w-full min-h-screen relative">
+        <div className="fixed top-0 left-0 w-full h-full z-0">
           <Grainient
             color1="#00E0C9"
             color2="#11EAFF"
@@ -108,17 +109,70 @@ export default function RootLayout({
         </div>
         <main className="isolate max-w-4xl mx-auto w-full h-full min-w-0 relative z-10 flex flex-col px-4 md:px-0 items-center">
           <Navbar />
-          <div className="flex-1 mt-16 flex flex-col justify-center w-full h-full">
-            <Image className="absolute z-0 top-10  -right-36" src="/assets/Head_Kokou.png" width={300} height={300} alt="Kokou" />
-            <div
-             className="overflow-y-auto z-1000 max-h-[calc(100vh-16rem)] w-full border-4 bg-[#ffe09d] text-pink-900 min-h-[calc(100vh-30rem)] border-[#7E384E] p-4">
-              {children}  
-            </div>
-            <Image className={`absolute z-1000 bottom-24 -right-16`} src={`/assets/leaf_0.png`} width={300} height={300} alt="Kokou" />
-            <Image className={`absolute z-1000 bottom-24 -right-16`} src={`/assets/leaf_1.png`} width={300} height={300} alt="Kokou" />
+          <Image
+            className="absolute z-[1001] top-0 -left-6 pointer-events-none"
+            src="/assets/topivy.png"
+            width={120}
+            height={120}
+            alt="Top ivy"
+          />
+          <Image
+            className="absolute z-[1000] top-0 -left-6 pointer-events-none"
+            src="/assets/underivy.png"
+            width={120}
+            height={120}
+            alt="Under ivy"
+          />
+          <div className="flex-1 mt-40 flex flex-col justify-center w-full h-full">
+            <AnimatedContent
+              distance={100}
+              direction="vertical"
+              reverse={false}
+              duration={1.5}
+              
+              ease="power3.out"
+              initialOpacity={0}
+              animateOpacity
+              scale={1}
+              threshold={0.1}
+              delay={0.2}
+            >
+              <Image
+                className="absolute z-0 -top-32  -right-36"
+                src="/assets/1k.png"
+                width={300}
+                height={300}
+                alt="Head Kokou"
+              />
+              <div className="relative w-full">
+                <div className="overflow-y-auto pb-32 pl-12 z-[1000] h-full w-full border-4 bg-[#ffe09d] text-pink-900 min-h-[calc(100vh-20rem)] border-[#7E384E] p-4">
+                  {children}
+                </div>
 
-
+                <Image
+                  className="absolute z-[1001] -bottom-14 -left-24 pointer-events-none"
+                  src="/assets/2k.png"
+                  width={200}
+                  height={200}
+                  alt="Kokou"
+                />
+              </div>
+            </AnimatedContent>
           </div>
+          <Image
+            className="absolute z-[1001] bottom-20 -right-80 -rotate-20 pointer-events-none"
+            src="/assets/aboveleaf.png"
+            width={300}
+            height={300}
+            alt="Kokou"
+          />
+          <Image
+            className="absolute z-[1000] bottom-20 -right-80 -rotate-20 pointer-events-none"
+            src="/assets/underleaf.png"
+            width={300}
+            height={300}
+            alt="Kokou"
+          />
           <Footer />
           <Analytics />
           <SpeedInsights />
