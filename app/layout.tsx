@@ -80,12 +80,88 @@ export default function RootLayout({
         GeistMono.variable,
       )}
     >
-      <body className="antialiased w-full min-h-screen relative">
+      <head>
+        <meta name="apple-mobile-web-app-title" content="Kokou" />
+      </head>
+      <body className="antialiased mt-40 overflow-hidden w-full min-h-screen relative">
+
+        <main className="isolate max-w-4xl mx-auto w-full h-full min-w-0 relative z-10 flex flex-col px-4 md:px-0 items-center">
+          <Navbar />
+          <Image
+            className="hidden md:block absolute z-[1001] -top-44 lg:-left-16 pointer-events-none w-[clamp(100px,15vw,200px)]"
+            src="/assets/topivy.png"
+            width={170}
+            height={170}
+            alt="Top ivy"
+          />
+          <Image
+            className="hidden md:block absolute z-0 -top-44 -left-16 pointer-events-none w-[clamp(100px,15vw,200px)]"
+            src="/assets/underivy.png"
+            width={170}
+            height={170}
+            alt="Under ivy"
+          />
+          <div className="flex-1 mt-9 flex flex-col justify-center w-full h-full">
+            <AnimatedContent
+              distance={100}
+              direction="vertical"
+              reverse={false}
+              duration={1.5}
+              ease="power3.out"
+              initialOpacity={0}
+              animateOpacity
+              scale={1}
+              threshold={0.1}
+              delay={0.2}
+            >
+              <Image
+                className="hidden md:block absolute z-0 top-24  lg:-top-[13rem] -right-60 pointer-events-none w-[clamp(100px,35vw,500px)]"
+                src="/assets/1k.png"
+                width={400}
+                height={400}
+                alt="Head Kokou"
+              />
+              <div className="relative w-full">
+                <div className="overflow-y-auto pb-36 pl-12 z-[1000] w-full  border-4 bg-[#ffe09d] text-pink-900 h-[calc(100vh-20rem)] border-[#7E384E] p-4">
+                  {children}
+                </div>
+
+                <Image
+                  className="hidden md:block absolute z-[1001] -bottom-24 -left-16 lg:-bottom-[5.45rem] lg:-left-24 pointer-events-none w-[clamp(100px,25vw,300px)]"
+                  src="/assets/2k.png"
+                  width={300}
+                  height={300}
+                  alt="Kokou Tail"
+                />
+              </div>
+            </AnimatedContent>
+          </div>
+
+          <Footer />
+          <Analytics />
+          <SpeedInsights />
+        </main>
+          <Image
+            className="hidden lg:block absolute z-[1001] -right-24 bottom-80 pointer-events-none  w-[clamp(80px,30vw,380px)]"
+            style={{ right: 'clamp(-120px, calc(50vw - 50%), 30px)' }}
+            src="/assets/aboveleaf.png"
+            width={500}
+            height={500}
+            alt="Above leaf"
+          />
+          <Image
+            className="hidden lg:block absolute z-[1000] -right-36 bottom-32 pointer-events-none  w-[clamp(80px,30vw,380px)]"
+            style={{ right: 'clamp(-120px, calc(50vw - 50%), -70px)' }}
+            src="/assets/underleaf.png"
+            width={500}
+            height={500}
+            alt="Under leaf"
+          />
         <div className="fixed top-0 left-0 w-full h-full z-0">
           <Grainient
-            color1="#00E0C9"
+            color1="#28E9FD"
             color2="#11EAFF"
-            color3="#00BE46"
+            color3="#00badf"
             timeSpeed={1.5}
             colorBalance={0}
             warpStrength={2.5}
@@ -107,75 +183,6 @@ export default function RootLayout({
             zoom={0.6}
           />
         </div>
-        <main className="isolate max-w-4xl mx-auto w-full h-full min-w-0 relative z-10 flex flex-col px-4 md:px-0 items-center">
-          <Navbar />
-          <Image
-            className="hidden md:block absolute z-[1001] top-0 -left-12 lg:-left-20 pointer-events-none w-24 md:w-32 lg:w-44"
-            src="/assets/topivy.png"
-            width={170}
-            height={170}
-            alt="Top ivy"
-          />
-          <Image
-            className="hidden md:block absolute z-[1000] top-0 -left-12 lg:-left-20 pointer-events-none w-24 md:w-32 lg:w-44"
-            src="/assets/underivy.png"
-            width={170}
-            height={170}
-            alt="Under ivy"
-          />
-          <div className="flex-1 mt-40 flex flex-col justify-center w-full h-full">
-            <AnimatedContent
-              distance={100}
-              direction="vertical"
-              reverse={false}
-              duration={1.5}
-              ease="power3.out"
-              initialOpacity={0}
-              animateOpacity
-              scale={1}
-              threshold={0.1}
-              delay={0.2}
-            >
-              <Image
-                className="hidden md:block absolute z-0 -top-24 -right-28 lg:-top-40 lg:-right-48 pointer-events-none w-48 md:w-64 lg:w-[400px]"
-                src="/assets/1k.png"
-                width={400}
-                height={400}
-                alt="Head Kokou"
-              />
-              <div className="relative w-full">
-                <div className="overflow-y-auto pb-32 pl-12 z-[1000] h-full w-full  border-4 bg-[#ffe09d] text-pink-900 min-h-[calc(100vh-20rem)] border-[#7E384E] p-4">
-                  {children}
-                </div>
-
-                <Image
-                  className="hidden md:block absolute z-[1001] -bottom-12 -left-16 lg:-bottom-[4.5rem] lg:-left-24 pointer-events-none w-28 md:w-40 lg:w-[250px]"
-                  src="/assets/2k.png"
-                  width={250}
-                  height={250}
-                  alt="Kokou"
-                />
-              </div>
-            </AnimatedContent>
-          </div>
-          <Image
-            className="hidden lg:block absolute z-[1001] bottom-20 -right-48 xl:-right-72 -rotate-20 pointer-events-none w-40 lg:w-60 xl:w-[300px]"
-            src="/assets/aboveleaf.png"
-            width={300}
-            height={300}
-            alt="Kokou"
-          />
-          <Image
-            className="hidden lg:block absolute z-[1000] bottom-20 -right-48 xl:-right-72 -rotate-20 pointer-events-none w-40 lg:w-60 xl:w-[300px]"
-            src="/assets/underleaf.png"
-            width={300}
-            height={300}
-            alt="Kokou"
-          />
-          <Footer />
-          <Analytics />
-          <SpeedInsights />
-        </main>
       </body>
     </html>
   );

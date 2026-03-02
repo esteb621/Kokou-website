@@ -21,7 +21,6 @@ export function Navbar() {
   const pathname = usePathname();
   return (
     <PillNav
-      logo={logo.src}
       items={navItems}
       activeHref={pathname}
       className="custom-nav"
