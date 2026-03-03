@@ -26,7 +26,6 @@ export async function GET(req: NextRequest) {
     const { data, error } = await sb
       .from("articles")
       .select("*")
-      .order("created", { ascending: false });
 
     if (error) throw new Error(error.message);
     return NextResponse.json(data);

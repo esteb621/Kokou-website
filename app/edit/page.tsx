@@ -4,25 +4,18 @@ import "./edit.css";
 import { useState, useCallback, useRef } from "react";
 import type { Article } from "@/lib/supabase";
 import { Input } from "@/components/ui/input";
+import { ArticleEditor } from "@/components/tiptap-templates/simple/article-editor";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-type ArticleForm = {
-  titre: string;
-  slug: string;
-  contenu: string;
-  cover: string;
-  publie: boolean;
-  publie_le: string;
-};
-
-const EMPTY_FORM: ArticleForm = {
-  titre: "",
+const EMPTY_FORM: Article = {
+  id: "",
+  title: "",
   slug: "",
-  contenu: "",
-  cover: "",
-  publie: false,
-  publie_le: new Date().toISOString().slice(0, 10),
+  content: "",
+  cover: null,
+  posted: false,
+  created_at: new Date().toISOString().slice(0, 10),
 };
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
@@ -62,7 +55,7 @@ export default function EditPage() {
 
   const [view, setView] = useState<"list" | "edit" | "new">("list");
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
-  const [form, setForm] = useState<ArticleForm>(EMPTY_FORM);
+  const [form, setForm] = useState<Article>(EMPTY_FORM);
   const [saving, setSaving] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
 
@@ -120,13 +113,14 @@ export default function EditPage() {
   const openEdit = (article: Article) => {
     setSelectedArticle(article);
     setForm({
-      titre: article.titre,
+      id: article.id,
+      title: article.title,
       slug: article.slug,
-      contenu: article.contenu,
+      content: article.content,
       cover: article.cover,
-      publie: article.publie,
-      publie_le: article.publie_le
-        ? article.publie_le.slice(0, 10)
+      posted: article.posted,
+      created_at: article.created_at
+        ? article.created_at.slice(0, 10)
         : new Date().toISOString().slice(0, 10),
     });
     setView("edit");
@@ -152,7 +146,7 @@ export default function EditPage() {
   // ── Save ──────────────────────────────────────────────────────────────────
 
   const handleSave = async () => {
-    if (!form.titre.trim() || !form.slug.trim()) {
+    if (!form.title.trim() || !form.slug.trim()) {
       setError("Title and slug are required.");
       return;
     }
@@ -162,9 +156,9 @@ export default function EditPage() {
 
     const payload = {
       ...form,
-      publie_le: form.publie_le
-        ? new Date(form.publie_le).toISOString()
-        : new Date().toISOString(),
+      created_at: form.created_at
+        ? form.created_at.slice(0, 10)
+        : new Date().toISOString().slice(0, 10),
     };
 
     try {
@@ -330,8 +324,8 @@ function ListView({
   onDeleteCancel: () => void;
   onRefresh: () => void;
 }) {
-  const published = articles.filter((a) => a.publie);
-  const drafts = articles.filter((a) => !a.publie);
+  const published = articles.filter((a) => a.posted);
+  const drafts = articles.filter((a) => !a.posted);
 
   return (
     <div className="list-view">
@@ -372,16 +366,16 @@ function ListView({
               <div className="article-info">
                 <div className="article-row-top">
                   <span
-                    className={`badge ${article.publie ? "badge-published" : "badge-draft"}`}
+                    className={`badge ${article.posted ? "badge-published" : "badge-draft"}`}
                   >
-                    {article.publie ? "Published" : "Draft"}
+                    {article.posted ? "Published" : "Draft"}
                   </span>
                   <span className="article-date">
-                    {article.publie_le ? formatDate(article.publie_le) : "—"}
+                    {article.created_at ? formatDate(article.created_at) : "—"}
                   </span>
                 </div>
                 <h3 className="article-title">
-                  {article.titre || <em>Untitled</em>}
+                  {article.title || <em>Untitled</em>}
                 </h3>
                 <code className="article-slug">/blog/{article.slug}</code>
               </div>
@@ -433,8 +427,8 @@ function EditorView({
   success,
 }: {
   isNew: boolean;
-  form: ArticleForm;
-  setForm: React.Dispatch<React.SetStateAction<ArticleForm>>;
+  form: Article;
+  setForm: React.Dispatch<React.SetStateAction<Article>>;
   onTitreChange: (titre: string) => void;
   onSave: () => void;
   onBack: () => void;
@@ -442,8 +436,6 @@ function EditorView({
   error: string;
   success: string;
 }) {
-  const [activeTab, setActiveTab] = useState<"write" | "preview">("write");
-
   return (
     <div className="editor-view">
       <div className="editor-header">
@@ -468,11 +460,34 @@ function EditorView({
             <label className="field-label">Title</label>
             <input
               type="text"
-              value={form.titre}
+              value={form.title}
               onChange={(e) => onTitreChange(e.target.value)}
               className="field-input"
               placeholder="Article title"
             />
+          </div>
+          <div className="sidebar-card">
+            <h3 className="sidebar-title">Cover</h3>
+            <div className="field">
+              <label className="field-label">Image file</label>
+              <Input
+                type="file"
+                accept="image/*"
+                onChange={(e) =>
+                  setForm((f) => ({ ...f, cover: e.target.value }))
+                }
+              />
+            </div>
+            {form.cover && (
+              <div className="cover-preview">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={URL.createObjectURL(form.cover)}
+                  alt="Cover preview"
+                  className="cover-img"
+                />
+              </div>
+            )}
           </div>
 
           <div className="field">
@@ -492,39 +507,11 @@ function EditorView({
           </div>
 
           <div className="field field-grow">
-            <div className="content-tabs">
-              <button
-                className={`tab ${activeTab === "write" ? "tab-active" : ""}`}
-                onClick={() => setActiveTab("write")}
-              >
-                ✏️ Write (HTML)
-              </button>
-              <button
-                className={`tab ${activeTab === "preview" ? "tab-active" : ""}`}
-                onClick={() => setActiveTab("preview")}
-              >
-                👁 Preview
-              </button>
-            </div>
-
-            {activeTab === "write" ? (
-              <textarea
-                value={form.contenu}
-                onChange={(e) =>
-                  setForm((f) => ({ ...f, contenu: e.target.value }))
-                }
-                className="content-editor"
-                placeholder="Article HTML content…"
-                spellCheck={false}
-              />
-            ) : (
-              <div
-                className="content-preview prose"
-                dangerouslySetInnerHTML={{
-                  __html: form.contenu || "<p><em>No content yet</em></p>",
-                }}
-              />
-            )}
+            <label className="field-label">Content</label>
+            <ArticleEditor
+              value={form.content}
+              onChange={(html) => setForm((f) => ({ ...f, content: html }))}
+            />
           </div>
         </div>
 
@@ -564,30 +551,7 @@ function EditorView({
             </div>
           </div>
 
-          <div className="sidebar-card">
-            <h3 className="sidebar-title">Cover</h3>
-            <div className="field">
-              <label className="field-label">Image URL</label>
-              <Input
-                type="text"
-                value={form.cover}
-                onChange={(e) =>
-                  setForm((f) => ({ ...f, cover: e.target.value }))
-                }
-                placeholder="https://…"
-              />
-            </div>
-            {form.cover && (
-              <div className="cover-preview">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={form.cover}
-                  alt="Cover preview"
-                  className="cover-img"
-                />
-              </div>
-            )}
-          </div>
+
         </div>
       </div>
     </div>

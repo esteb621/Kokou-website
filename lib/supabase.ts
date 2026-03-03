@@ -3,13 +3,12 @@ import { createClient } from "@supabase/supabase-js";
 export type Article = {
   id: string;
   slug: string;
-  titre: string;
-  contenu: string;
-  cover: string;
-  publie: boolean;
-  publie_le: string;
-  created: string;
-  updated: string;
+  title: string;
+  content: string;
+  cover: File | null;
+  posted: boolean;
+  created_at: string;
+  updated_at?: string;
 };
 
 function getSupabase() {

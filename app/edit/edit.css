@@ -1,6 +1,6 @@
 /* ─── Variables ─────────────────────────────────────────────────────────────── */
-.edit-page {
-  --ed-bg: #fffbf4;
+:root {
+  --ed-bg: #fdf4ff;
   --ed-surface: #fff;
   --ed-border: #e8d5b7;
   --ed-border-focus: #7e384e;
@@ -16,7 +16,9 @@
   --ed-radius-lg: 10px;
   --ed-shadow: 0 2px 8px rgba(126, 56, 78, 0.08);
   --ed-shadow-lg: 0 4px 20px rgba(126, 56, 78, 0.12);
+}
 
+.edit-page {
   font-family: var(--font-geist-sans), system-ui, sans-serif;
   color: var(--ed-text);
   min-height: 100%;

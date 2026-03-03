@@ -88,14 +88,14 @@ export default function RootLayout({
         <main className="isolate max-w-4xl mx-auto w-full h-full min-w-0 relative z-10 flex flex-col px-4 md:px-0 items-center">
           <Navbar />
           <Image
-            className="hidden md:block absolute z-[1001] -top-44 lg:-left-16 pointer-events-none w-[clamp(100px,15vw,200px)]"
+            className="hidden md:block absolute z-[1001] -top-44 -left-2 lg:-left-16 pointer-events-none w-[clamp(100px,15vw,200px)]"
             src="/assets/topivy.png"
             width={170}
             height={170}
             alt="Top ivy"
           />
           <Image
-            className="hidden md:block absolute z-0 -top-44 -left-16 pointer-events-none w-[clamp(100px,15vw,200px)]"
+            className="hidden md:block absolute z-0 -top-44 -left-2 lg:-left-16 pointer-events-none w-[clamp(100px,15vw,200px)]"
             src="/assets/underivy.png"
             width={170}
             height={170}
