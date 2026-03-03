@@ -127,7 +127,7 @@ export default function RootLayout({
                 </div>
 
                 <Image
-                  className="hidden md:block absolute z-[1001] -bottom-24 -left-16 lg:-bottom-[5.45rem] lg:-left-24 pointer-events-none w-[clamp(100px,25vw,300px)]"
+                  className="hidden hover:opacity-20 transition-opacity md:block absolute z-[1001] -bottom-24 -left-16 lg:-bottom-[5.45rem] lg:-left-24  w-[clamp(100px,25vw,300px)]"
                   src="/assets/2k.png"
                   width={300}
                   height={300}
@@ -142,7 +142,7 @@ export default function RootLayout({
           <SpeedInsights />
         </main>
           <Image
-            className="hidden lg:block absolute z-[1001] -right-24 bottom-80 pointer-events-none  w-[clamp(80px,30vw,380px)]"
+            className="hidden hover:opacity-20 transition-opacity lg:block absolute z-[1001] -right-24 bottom-80  w-[clamp(80px,30vw,380px)]"
             style={{ right: 'clamp(-120px, calc(50vw - 50%), 30px)' }}
             src="/assets/aboveleaf.png"
             width={500}
@@ -150,7 +150,7 @@ export default function RootLayout({
             alt="Above leaf"
           />
           <Image
-            className="hidden lg:block absolute z-[1000] -right-36 bottom-32 pointer-events-none  w-[clamp(80px,30vw,380px)]"
+            className="hidden hover:opacity-20 transition-opacity lg:block absolute z-[1000] -right-36 bottom-32 pointer-events-none  w-[clamp(80px,30vw,380px)]"
             style={{ right: 'clamp(-120px, calc(50vw - 50%), -70px)' }}
             src="/assets/underleaf.png"
             width={500}

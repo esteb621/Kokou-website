@@ -1,14 +1,17 @@
 import { notFound } from "next/navigation";
-import { CustomMDX } from "@/app/components/mdx";
-import { formatDate, getBlogPosts } from "@/app/blog/utils";
+import { getArticleBySlug, getPublishedArticles } from "@/lib/supabase";
 import { baseUrl } from "@/app/sitemap";
+import Image from "next/image";
+
+export const revalidate = 60;
 
 export async function generateStaticParams() {
-  let posts = getBlogPosts();
-
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
+  try {
+    const articles = await getPublishedArticles();
+    return articles.map((a) => ({ slug: a.slug }));
+  } catch {
+    return [];
+  }
 }
 
 export async function generateMetadata({
@@ -16,55 +19,49 @@ export async function generateMetadata({
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  const resolvedParams = await params;
-  let post = getBlogPosts().find((post) => post.slug === resolvedParams.slug);
-  if (!post) {
-    return;
-  }
+  const { slug } = await params;
+  const article = await getArticleBySlug(slug);
+  if (!article) return {};
 
-  let {
-    title,
-    publishedAt: publishedTime,
-    summary: description,
-    image,
-  } = post.metadata;
-  let ogImage = image
-    ? image
-    : `${baseUrl}/og?title=${encodeURIComponent(title)}`;
+  const ogImage =
+    article.cover || `${baseUrl}/og?title=${encodeURIComponent(article.titre)}`;
 
   return {
-    title,
-    description,
+    title: article.titre,
+    description: article.titre,
     openGraph: {
-      title,
-      description,
+      title: article.titre,
       type: "article",
-      publishedTime,
-      url: `${baseUrl}/blog/${post.slug}`,
-      images: [
-        {
-          url: ogImage,
-        },
-      ],
+      publishedTime: article.publie_le,
+      url: `${baseUrl}/blog/${article.slug}`,
+      images: [{ url: ogImage }],
     },
     twitter: {
       card: "summary_large_image",
-      title,
-      description,
+      title: article.titre,
       images: [ogImage],
     },
   };
 }
 
-export default async function Blog({
+function formatDate(dateStr: string) {
+  if (!dateStr) return "";
+  return new Date(dateStr).toLocaleString("fr-FR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
+
+export default async function BlogPost({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  const resolvedParams = await params;
-  let post = getBlogPosts().find((post) => post.slug === resolvedParams.slug);
+  const { slug } = await params;
+  const article = await getArticleBySlug(slug);
 
-  if (!post) {
+  if (!article || !article.publie) {
     notFound();
   }
 
@@ -77,32 +74,43 @@ export default async function Blog({
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "BlogPosting",
-            headline: post.metadata.title,
-            datePublished: post.metadata.publishedAt,
-            dateModified: post.metadata.publishedAt,
-            description: post.metadata.summary,
-            image: post.metadata.image
-              ? `${baseUrl}${post.metadata.image}`
-              : `/og?title=${encodeURIComponent(post.metadata.title)}`,
-            url: `${baseUrl}/blog/${post.slug}`,
+            headline: article.titre,
+            datePublished: article.publie_le,
+            dateModified: article.updated,
+            url: `${baseUrl}/blog/${article.slug}`,
             author: {
               "@type": "Person",
-              name: "My Portfolio",
+              name: "Kokou",
             },
           }),
         }}
       />
+
+      {article.cover && (
+        <div className="relative w-full h-64 mb-8 rounded-lg overflow-hidden">
+          <Image
+            src={article.cover}
+            alt={article.titre}
+            fill
+            className="object-cover"
+          />
+        </div>
+      )}
+
       <h1 className="title font-semibold text-2xl tracking-tighter">
-        {post.metadata.title}
+        {article.titre}
       </h1>
+
       <div className="flex justify-between items-center mt-2 mb-8 text-sm">
         <p className="text-sm text-neutral-600">
-          {formatDate(post.metadata.publishedAt)}
+          {formatDate(article.publie_le)}
         </p>
       </div>
-      <article className="prose">
-        <CustomMDX source={post.content} />
-      </article>
+
+      <article
+        className="prose prose-sm max-w-none"
+        dangerouslySetInnerHTML={{ __html: article.contenu }}
+      />
     </section>
   );
 }

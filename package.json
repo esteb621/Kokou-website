@@ -7,6 +7,7 @@
     "sync:drive": "tsx scripts/sync-google-drive.ts"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.98.0",
     "@tailwindcss/postcss": "4.0.0-alpha.13",
     "@types/node": "20.11.17",
     "@types/react": "18.2.55",

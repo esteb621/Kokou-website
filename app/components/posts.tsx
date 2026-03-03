@@ -1,31 +1,36 @@
-import { formatDate, getBlogPosts } from "@/app/blog/utils";
+import { getPublishedArticles } from "@/lib/supabase";
 import Masonry from "@/components/Masonry";
 
-export function BlogPosts() {
-  let allBlogs = getBlogPosts();
+export async function BlogPosts() {
+  let articles: Awaited<ReturnType<typeof getPublishedArticles>> = [];
 
-  const sortedBlogs = allBlogs.sort((a, b) => {
-    if (new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt)) {
-      return -1;
-    }
-    return 1;
-  });
+  try {
+    articles = await getPublishedArticles();
+  } catch {
+    // Supabase inaccessible ou aucun article
+  }
 
-  const masonryItems = sortedBlogs.map((post, index) => {
-    // Define some height variations for the masonry grid
-    const heights = [300, 400, 500, 250, 600];
+  if (articles.length === 0) {
+    return (
+      <p className="text-sm opacity-60">
+        No article published yet.
+      </p>
+    );
+  }
+
+  const heights = [300, 400, 500, 250, 600];
+
+  const masonryItems = articles.map((article, index) => {
     const height = heights[index % heights.length];
-
-    // Generate an image from picsum using the slug as seed so it stays identical across renders
     const imgUrl =
-      post.metadata.image ||
-      `https://picsum.photos/seed/${post.slug}/600/${height}?grayscale`;
+      article.cover ||
+      `https://picsum.photos/seed/${article.slug}/600/${height}?grayscale`;
 
     return {
-      id: post.slug,
+      id: article.slug,
       img: imgUrl,
-      url: `/blog/${post.slug}`,
-      height: height,
+      url: `/blog/${article.slug}`,
+      height,
     };
   });
 

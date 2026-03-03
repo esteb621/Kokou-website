@@ -1,14 +1,16 @@
 import { BlogPosts } from "@/app/components/posts";
 
+export const revalidate = 60;
+
 export const metadata = {
   title: "Blog",
   description: "Read my blog.",
 };
 
-export default function Page() {
+export default async function Page() {
   return (
     <section className="w-full h-full text-black dark:text-white">
-      <h1 className="font-semibold text-2xl mb-8 tracking-tighter">My Blog</h1>
+      <h1 className="font-semibold text-2xl mb-8 ml-8 tracking-tighter">My Blog</h1>
       <BlogPosts />
     </section>
   );
