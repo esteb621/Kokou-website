@@ -183,7 +183,13 @@ const MobileToolbarContent = ({
   </>
 )
 
-export function SimpleEditor() {
+export function SimpleEditor({
+  value,
+  onChange,
+}: {
+  value?: string
+  onChange?: (html: string) => void
+} = {}) {
   const isMobile = useIsBreakpoint()
   const { height } = useWindowSize()
   const [mobileView, setMobileView] = useState<"main" | "highlighter" | "link">(
@@ -228,8 +234,20 @@ export function SimpleEditor() {
         onError: (error) => console.error("Upload failed:", error),
       }),
     ],
-    content,
+    content: value ?? content,
+    onUpdate: ({ editor }) => {
+      onChange?.(editor.getHTML())
+    },
   })
+
+  // Sync when external value changes (controlled mode)
+  useEffect(() => {
+    if (!editor || value === undefined) return
+    const current = editor.getHTML()
+    if (current !== value) {
+      editor.commands.setContent(value, { emitUpdate: false })
+    }
+  }, [value, editor])
 
   const rect = useCursorVisibility({
     editor,

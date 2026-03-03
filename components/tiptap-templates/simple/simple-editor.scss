@@ -1,70 +1,86 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 
-body {
+/* ─── Tiptap theme override — scoped to the edit page ─────────────────────────
+   We remap all --tt-* tokens to the site's warm rose/cream palette.
+   Toolbar buttons, popovers, dropdowns, etc. all feel on-brand.
+────────────────────────────────────────────────────────────────────────────── */
+
+.edit-page {
+  /* Backgrounds */
+  --tt-bg-color: #fffbf4;
+  --tt-card-bg-color: #fff;
+  --tt-sidebar-bg-color: #fdf0ee;
+
+  /* Borders */
+  --tt-border-color: rgba(126, 56, 78, 0.18);
+  --tt-border-color-tint: rgba(126, 56, 78, 0.08);
+  --tt-card-border-color: rgba(126, 56, 78, 0.1);
+
+  /* Cursor / selection */
+  --tt-cursor-color: #7e384e;
+  --tt-selection-color: rgba(126, 56, 78, 0.15);
+
+  /* Scrollbar */
+  --tt-scrollbar-color: rgba(126, 56, 78, 0.15);
+
+  /* Brand — replace violet with rose/bordeaux */
+  --tt-brand-color-50:  #fceef1;
+  --tt-brand-color-100: #f8d7e0;
+  --tt-brand-color-200: #f0afc1;
+  --tt-brand-color-300: #e07e99;
+  --tt-brand-color-400: #c75070;
+  --tt-brand-color-500: #7e384e;
+  --tt-brand-color-600: #5e2a3a;
+  --tt-brand-color-700: #4a2030;
+  --tt-brand-color-800: #361626;
+  --tt-brand-color-900: #220e1a;
+  --tt-brand-color-950: #130810;
+
+  /* Text shades */
+  --tt-gray-light-900: #3d1a25;
+  --tt-gray-light-800: #5e2a3a;
+  --tt-gray-light-700: #7e384e;
+  --tt-gray-light-600: #8a6070;
+  --tt-gray-light-500: #a88090;
+  --tt-gray-light-400: #c8a8b4;
+  --tt-gray-light-300: #e0ccd2;
+  --tt-gray-light-200: #eedce0;
+  --tt-gray-light-100: #f9f0f2;
+  --tt-gray-light-50:  #fdf8f9;
+
+  /* Gray alpha — warm tinted overlays */
+  --tt-gray-light-a-50:  rgba(126, 56, 78, 0.04);
+  --tt-gray-light-a-100: rgba(126, 56, 78, 0.07);
+  --tt-gray-light-a-200: rgba(126, 56, 78, 0.12);
+  --tt-gray-light-a-300: rgba(126, 56, 78, 0.22);
+  --tt-gray-light-a-400: rgba(126, 56, 78, 0.38);
+  --tt-gray-light-a-500: rgba(126, 56, 78, 0.55);
+  --tt-gray-light-a-600: rgba(126, 56, 78, 0.70);
+  --tt-gray-light-a-700: rgba(126, 56, 78, 0.82);
+  --tt-gray-light-a-800: rgba(126, 56, 78, 0.92);
+  --tt-gray-light-a-900: rgba(61, 26, 37, 0.98);
+
+  /* Theme text */
+  --tt-theme-text: #3d1a25;
   --tt-toolbar-height: 44px;
-  --tt-theme-text: var(--tt-gray-light-900);
-
-  .dark & {
-    --tt-theme-text: var(--tt-gray-dark-900);
-  }
 }
 
-body {
-  font-family: "Inter", sans-serif;
-  color: var(--tt-theme-text);
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
-  padding: 0;
-  overscroll-behavior-y: none;
-}
-
-html,
-body {
-  overscroll-behavior-x: none;
-}
-
-html,
-body,
-#root,
-#app {
-  height: 100%;
-  background-color: var(--tt-bg-color);
-}
-
-::-webkit-scrollbar {
-  width: 0.25rem;
-}
-
-* {
-  scrollbar-width: thin;
-  scrollbar-color: var(--tt-scrollbar-color) transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: var(--tt-scrollbar-color);
-  border-radius: 9999px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.tiptap.ProseMirror {
+/* ─── DM Sans inside the ProseMirror area ────────────────────────────────── */
+.edit-page .tiptap.ProseMirror {
   font-family: "DM Sans", sans-serif;
 }
 
+/* ─── Wrapper — embedded (not full-viewport) ─────────────────────────────── */
 .simple-editor-wrapper {
-  width: 100vw;
-  height: 100vh;
   overflow: auto;
+  background: var(--tt-bg-color, #fffbf4);
 }
 
+/* ─── Content area ───────────────────────────────────────────────────────── */
 .simple-editor-content {
-  max-width: 648px;
+  max-width: 100%;
   width: 100%;
   margin: 0 auto;
-  height: 100%;
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -72,11 +88,70 @@ body,
 
 .simple-editor-content .tiptap.ProseMirror.simple-editor {
   flex: 1;
-  padding: 3rem 3rem 30vh;
+  padding: 1.25rem 1.5rem 2rem;
+  min-height: 320px;
+  color: #3d1a25;
+  line-height: 1.75;
+
+  h1, h2, h3, h4 {
+    color: #7e384e;
+    font-weight: 700;
+    line-height: 1.3;
+    margin: 1.2em 0 0.4em;
+  }
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.3rem; }
+  h3 { font-size: 1.1rem; }
+  h4 { font-size: 0.97rem; }
+
+  p { margin: 0.5em 0; }
+
+  a {
+    color: #7e384e;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  code {
+    background: #fdf0ee;
+    color: #7e384e;
+    border-radius: 4px;
+    padding: 0.15em 0.35em;
+    font-size: 0.83em;
+  }
+
+  pre {
+    background: #2a1018;
+    color: #f5cdd4;
+    border-radius: 8px;
+    padding: 1rem;
+    overflow-x: auto;
+    font-size: 0.83rem;
+    code { background: none; color: inherit; padding: 0; }
+  }
+
+  blockquote {
+    border-left: 3px solid #c8a8b4;
+    padding: 0.5rem 1rem;
+    margin: 0.75rem 0;
+    color: #8a6070;
+    font-style: italic;
+  }
+
+  ul, ol { padding-left: 1.5rem; margin: 0.5em 0; }
+  li { margin: 0.2em 0; }
+
+  img { max-width: 100%; border-radius: 6px; }
+
+  hr {
+    border: none;
+    border-top: 2px solid #e0ccd2;
+    margin: 1.5rem 0;
+  }
 }
 
 @media screen and (max-width: 480px) {
   .simple-editor-content .tiptap.ProseMirror.simple-editor {
-    padding: 1rem 1.5rem 30vh;
+    padding: 1rem 1rem 2rem;
   }
 }

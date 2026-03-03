@@ -4,7 +4,7 @@ import "./edit.css";
 import { useState, useCallback, useRef } from "react";
 import type { Article } from "@/lib/supabase";
 import { Input } from "@/components/ui/input";
-import { ArticleEditor } from "@/components/tiptap-templates/simple/article-editor";
+import { SimpleEditor } from "@/components/tiptap-templates/simple/simple-editor";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -453,7 +453,7 @@ function EditorView({
       {error && <div className="alert-error">{error}</div>}
       {success && <div className="alert-success">{success}</div>}
 
-      <div className="editor-grid">
+      <div>
         {/* Colonne principale */}
         <div className="editor-main">
           <div className="field">
@@ -508,51 +508,14 @@ function EditorView({
 
           <div className="field field-grow">
             <label className="field-label">Content</label>
-            <ArticleEditor
+            <SimpleEditor
               value={form.content}
               onChange={(html) => setForm((f) => ({ ...f, content: html }))}
             />
           </div>
         </div>
 
-        {/* Sidebar */}
-        <div className="editor-sidebar">
-          <div className="sidebar-card">
-            <h3 className="sidebar-title">Publishing</h3>
 
-            <div className="field">
-              <label className="toggle-label">
-                <input
-                  type="checkbox"
-                  checked={form.publie}
-                  onChange={(e) =>
-                    setForm((f) => ({ ...f, publie: e.target.checked }))
-                  }
-                  className="toggle-checkbox"
-                />
-                <span
-                  className={`toggle-text ${form.publie ? "toggle-on" : "toggle-off"}`}
-                >
-                  {form.publie ? "✅ Published" : "📝 Draft"}
-                </span>
-              </label>
-            </div>
-
-            <div className="field">
-              <label className="field-label">Publish date</label>
-              <input
-                type="date"
-                value={form.publie_le}
-                onChange={(e) =>
-                  setForm((f) => ({ ...f, publie_le: e.target.value }))
-                }
-                className="field-input"
-              />
-            </div>
-          </div>
-
-
-        </div>
       </div>
     </div>
   );
