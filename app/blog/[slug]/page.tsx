@@ -61,7 +61,7 @@ export default async function BlogPost({
   const { slug } = await params;
   const article = await getArticleBySlug(slug);
 
-  if (!article || !article.publie) {
+  if (!article || !article.posted) {
     notFound();
   }
 

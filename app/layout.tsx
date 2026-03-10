@@ -122,7 +122,7 @@ export default function RootLayout({
                 alt="Head Kokou"
               />
               <div className="relative w-full">
-                <div className="overflow-y-auto pb-36 pl-12 z-[1000] w-full  border-4 bg-[#ffe09d] text-pink-900 h-[calc(100vh-20rem)] border-[#7E384E] p-4">
+                <div className="overflow-y-auto pb-36 pl-12 pt-10 z-[1000] w-full  border-4 bg-[#ffe09d] text-pink-900 h-[calc(100vh-20rem)] border-[#7E384E] p-4">
                   {children}
                 </div>
 

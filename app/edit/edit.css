@@ -24,97 +24,6 @@
   min-height: 100%;
 }
 
-/* ─── Auth Screen ────────────────────────────────────────────────────────────── */
-.auth-screen {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 60vh;
-}
-
-.auth-card {
-  background: var(--ed-surface);
-  border: 2px solid var(--ed-border);
-  border-radius: var(--ed-radius-lg);
-  padding: 2.5rem 2rem;
-  width: 100%;
-  max-width: 380px;
-  box-shadow: var(--ed-shadow-lg);
-  text-align: center;
-}
-
-.auth-icon {
-  font-size: 2.5rem;
-  margin-bottom: 0.75rem;
-}
-
-.auth-title {
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--ed-primary);
-  margin: 0 0 0.35rem;
-}
-
-.auth-subtitle {
-  font-size: 0.85rem;
-  color: var(--ed-muted);
-  margin: 0 0 1.5rem;
-}
-
-.auth-form {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.auth-input {
-  width: 100%;
-  padding: 0.65rem 0.9rem;
-  border: 2px solid var(--ed-border);
-  border-radius: var(--ed-radius);
-  font-size: 0.95rem;
-  outline: none;
-  transition: border-color 0.15s;
-  box-sizing: border-box;
-  background: var(--ed-bg);
-  color: var(--ed-text);
-}
-
-.auth-input:focus {
-  border-color: var(--ed-border-focus);
-}
-
-.auth-error {
-  font-size: 0.82rem;
-  color: var(--ed-danger);
-  text-align: left;
-  margin: 0;
-}
-
-.auth-btn {
-  background: var(--ed-primary);
-  color: #fff;
-  border: none;
-  padding: 0.7rem 1rem;
-  border-radius: var(--ed-radius);
-  font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition:
-    background 0.15s,
-    transform 0.1s;
-}
-
-.auth-btn:hover:not(:disabled) {
-  background: var(--ed-primary-hover);
-  transform: translateY(-1px);
-}
-
-.auth-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
 /* ─── Shared Buttons ─────────────────────────────────────────────────────────── */
 .btn-primary {
   background: var(--ed-primary);
@@ -424,6 +333,13 @@
   margin: 0;
   flex: 1;
   text-align: center;
+}
+
+.editor-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
 }
 
 .editor-grid {
