@@ -23,6 +23,7 @@ export function Navbar() {
     <PillNav
       items={navItems}
       activeHref={pathname}
+      logo={logo}
       className="custom-nav"
       ease="power2.easeOut"
       baseColor="#7E384E"

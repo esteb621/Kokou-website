@@ -125,7 +125,7 @@ export default function ListPage() {
               </div>
               <div className="article-btns">
                 <button
-                  onClick={() => router.push(`/edit/${article.id}`)}
+                  onClick={() => router.push(`/edit/${article.slug}`)}
                   className="btn-edit"
                 >
                   Edit

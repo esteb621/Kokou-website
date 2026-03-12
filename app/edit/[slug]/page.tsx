@@ -16,7 +16,7 @@ import { EditorView } from "@/components/EditorView";
 export default function EditArticlePage() {
   const params = useParams();
   const router = useRouter();
-  const articleId = params.id as string;
+  const articleSlug = params.slug as string;
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -37,7 +37,7 @@ export default function EditArticlePage() {
   const fetchArticle = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch(`/api/articles/${articleId}`);
+      const res = await fetch(`/api/articles/${articleSlug}`);
       const data = await res.json();
       if (res.ok) {
         setForm({
@@ -59,7 +59,7 @@ export default function EditArticlePage() {
     } finally {
       setLoading(false);
     }
-  }, [articleId]);
+  }, [articleSlug]);
 
   useEffect(() => {
     fetchArticle();
@@ -117,7 +117,7 @@ export default function EditArticlePage() {
         payload.cover = publicUrl;
       }
 
-      const res = await fetch(`/api/articles/${articleId}`, {
+      const res = await fetch(`/api/articles/${articleSlug}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -139,7 +139,7 @@ export default function EditArticlePage() {
 
   const handleDelete = async () => {
     try {
-      const res = await fetch(`/api/articles/${articleId}`, {
+      const res = await fetch(`/api/articles/${articleSlug}`, {
         method: "DELETE",
       });
       if (!res.ok) throw new Error("Failed to delete article");
