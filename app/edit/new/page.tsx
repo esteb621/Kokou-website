@@ -1,14 +1,11 @@
 "use client";
 
 import "../edit.css";
-import { SetStateAction, useState } from "react";
-import type { Article } from "@/lib/supabase";
+import { useState } from "react";
+import type { Article } from "@/lib/types";
 import { createClient } from "@/utils/supabase/client";
 const supabase = createClient();
-import { Input } from "@/components/ui/input";
-import { SimpleEditor } from "@/components/tiptap-templates/simple/simple-editor";
 import { processArticleImages } from "@/lib/tiptap-utils";
-import { Send, SquarePen } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { EditorView } from "@/components/EditorView";
 

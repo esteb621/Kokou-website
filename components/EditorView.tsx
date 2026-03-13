@@ -1,4 +1,4 @@
-import { Article } from "@/lib/supabase";
+import { Article } from "@/lib/types";
 import { Send, SquarePen, Trash } from "lucide-react";
 import { Input } from "./ui/input";
 import { SimpleEditor } from "./tiptap-templates/simple/simple-editor";
