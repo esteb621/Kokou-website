@@ -7,6 +7,7 @@ import { createClient } from "@/utils/supabase/client";
 const supabase = createClient();
 import { Input } from "@/components/ui/input";
 import { SimpleEditor } from "@/components/tiptap-templates/simple/simple-editor";
+import { processArticleImages } from "@/lib/tiptap-utils";
 import { Send, SquarePen, Trash } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { EditorView } from "@/components/EditorView";
@@ -31,6 +32,7 @@ export default function EditArticlePage() {
   });
   const [fileToUpload, setFileToUpload] = useState<File | null>(null);
   const [saving, setSaving] = useState(false);
+  const [originalContent, setOriginalContent] = useState("");
 
   // ── Data ──────────────────────────────────────────────────────────────────
 
@@ -51,6 +53,7 @@ export default function EditArticlePage() {
             ? data.created_at.slice(0, 10)
             : new Date().toISOString().slice(0, 10),
         });
+        setOriginalContent(data.content);
       } else {
         setError(data.error || "Failed to load article");
       }
@@ -103,15 +106,23 @@ export default function EditArticlePage() {
     setError("");
     setSuccess("");
 
-    const payload = {
-      ...form,
-      posted: asDraft ? false : true,
+    try {
+      // Process images inside article first, passing originalContent so removed images are cleanly deleted
+      const processedContent = await processArticleImages(
+        form.content,
+        originalContent,
+        articleSlug
+      );
+
+      const payload = {
+        ...form,
+        content: processedContent,
+        posted: asDraft ? false : true,
       created_at: form.created_at
         ? form.created_at.slice(0, 10)
         : new Date().toISOString().slice(0, 10),
     };
 
-    try {
       if (fileToUpload) {
         const publicUrl = await uploadToSupabase(fileToUpload);
         payload.cover = publicUrl;

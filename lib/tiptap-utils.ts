@@ -1,3 +1,4 @@
+import { createClient } from "@/utils/supabase/client"
 import type { Node as PMNode } from "@tiptap/pm/model"
 import type { Transaction } from "@tiptap/pm/state"
 import {
@@ -363,7 +364,6 @@ export const handleImageUpload = async (
   onProgress?: (event: { progress: number }) => void,
   abortSignal?: AbortSignal
 ): Promise<string> => {
-  // Validate file
   if (!file) {
     throw new Error("No file provided")
   }
@@ -374,17 +374,75 @@ export const handleImageUpload = async (
     )
   }
 
-  // For demo/testing: Simulate upload progress. In production, replace the following code
-  // with your own upload implementation.
-  for (let progress = 0; progress <= 100; progress += 10) {
-    if (abortSignal?.aborted) {
-      throw new Error("Upload cancelled")
-    }
-    await new Promise((resolve) => setTimeout(resolve, 500))
-    onProgress?.({ progress })
+  if (abortSignal?.aborted) {
+    throw new Error("Upload cancelled")
   }
 
-  return "/images/tiptap-ui-placeholder-image.jpg"
+  onProgress?.({ progress: 100 })
+
+  // Return a local blob URL instead of uploading to Supabase immediately
+  return URL.createObjectURL(file)
+}
+
+export const processArticleImages = async (
+  newHtml: string,
+  oldHtml: string,
+  slug: string
+): Promise<string> => {
+  if (typeof window === "undefined") return newHtml
+
+  const supabase = createClient()
+  const parser = new DOMParser()
+  const newDoc = parser.parseFromString(newHtml, "text/html")
+  const newImages = Array.from(newDoc.querySelectorAll("img"))
+
+  // 1. Upload blobs
+  for (const img of newImages) {
+    if (img.src.startsWith("blob:")) {
+      try {
+        const response = await fetch(img.src)
+        const blob = await response.blob()
+
+        const ext = blob.type.split("/")[1] || "png"
+        const fileName = `${Math.random().toString(36).substring(2)}_${Date.now()}.${ext}`
+        const path = `${slug}/${fileName}`
+
+        const { data, error } = await supabase.storage.from("images").upload(path, blob, {
+          cacheControl: "3600",
+          upsert: false,
+        })
+
+        if (!error && data) {
+          const {
+            data: { publicUrl },
+          } = supabase.storage.from("images").getPublicUrl(data.path)
+          img.src = publicUrl // Replace in DOM
+        }
+      } catch (err) {
+        console.error("Failed to upload blob:", img.src, err)
+      }
+    }
+  }
+
+  const finalHtml = newDoc.body.innerHTML
+
+  // 2. See what old supabase images were deleted
+  const oldDoc = parser.parseFromString(oldHtml, "text/html")
+  const oldImages = Array.from(oldDoc.querySelectorAll("img"))
+  const finalImages = Array.from(newDoc.querySelectorAll("img"))
+
+  const finalSrcs = new Set(finalImages.map((img) => img.src))
+
+  for (const oldImg of oldImages) {
+    if (oldImg.src.includes("supabase.co/storage/v1/object/public/images/")) {
+      if (!finalSrcs.has(oldImg.src)) {
+        // Was removed
+        await deleteSupabaseImage(oldImg.src)
+      }
+    }
+  }
+
+  return finalHtml
 }
 
 type ProtocolOptions = {
@@ -528,7 +586,7 @@ export function selectCurrentBlockContent(editor: Editor) {
   if (!selection.empty) return
 
   const $pos = selection.$from
-  let blockNode = null
+  let blockNode: PMNode | null = null
   let blockPos = -1
 
   for (let depth = $pos.depth; depth >= 0; depth--) {
@@ -630,4 +688,24 @@ export function getSelectedBlockNodes(editor: Editor): PMNode[] {
   })
 
   return blocks
+}
+
+export const deleteSupabaseImage = async (url: string) => {
+  try {
+    const baseUrl = "/storage/v1/object/public/images/"
+    const index = url.indexOf(baseUrl)
+    if (index === -1) return
+    
+    const path = url.substring(index + baseUrl.length)
+    if (!path) return
+    
+    const supabase = createClient()
+    const { error } = await supabase.storage.from("images").remove([path])
+    
+    if (error) {
+      console.error("Failed to delete image from Supabase:", error)
+    }
+  } catch (err) {
+    console.error("Error deleting image:", err)
+  }
 }

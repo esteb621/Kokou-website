@@ -2,6 +2,13 @@
 @import "../styles/_variables.scss";
 @import "../styles/_keyframe-animations.scss";
 
+@theme {
+  --color-primary: var(--dynamic-primary);
+  --color-secondary: var(--dynamic-secondary);
+  --color-accent: var(--dynamic-accent);
+  --color-background-main: var(--dynamic-background);
+  --color-text-main: var(--dynamic-text);
+}
 ::selection {
   background-color: #47a3f3;
   color: #fefefe;

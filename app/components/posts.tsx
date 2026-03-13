@@ -6,8 +6,8 @@ export async function BlogPosts() {
 
   try {
     articles = await getPublishedArticles();
-  } catch {
-    // Supabase inaccessible ou aucun article
+  } catch (error) {
+    console.error("Error fetching articles", error);
   }
 
   if (articles.length === 0) {

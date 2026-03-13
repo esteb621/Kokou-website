@@ -261,62 +261,16 @@ const PillNav: React.FC<PillNavProps> = ({
   } as React.CSSProperties;
 
   return (
-    <div className="absolute top-[1em] z-[1000] w-full left-0 md:w-auto md:left-auto">
+    <div className="absolute top-[1em] z-[1000] w-full left-0 md:w-auto md:left-1/2 md:-translate-x-1/2">
       <nav
-        className={`w-full md:w-max flex items-center justify-between md:justify-start box-border px-4 md:px-0 ${className}`}
+        className={`w-full md:w-max flex items-center justify-between md:justify-center box-border px-4 md:px-0 ${className}`}
         aria-label="Primary"
         style={cssVars}
       >
-        {isRouterLink(items?.[0]?.href) ? (
-          <Link
-            href={items[0].href}
-            aria-label="Home"
-            onMouseEnter={handleLogoEnter}
-            role="menuitem"
-            ref={(el) => {
-              logoRef.current = el;
-            }}
-            className="rounded-full p-2 inline-flex items-center justify-center overflow-hidden"
-            style={{
-              width: "var(--nav-h)",
-              height: "var(--nav-h)",
-              background: "var(--base, #000)",
-            }}
-          >
-            <img
-              src={logo}
-              alt={logoAlt}
-              ref={logoImgRef}
-              className="w-full h-full object-cover block"
-            />
-          </Link>
-        ) : (
-          <a
-            href={items?.[0]?.href || "#"}
-            aria-label="Home"
-            onMouseEnter={handleLogoEnter}
-            ref={(el) => {
-              logoRef.current = el;
-            }}
-            className="rounded-full p-2 inline-flex items-center justify-center overflow-hidden"
-            style={{
-              width: "var(--nav-h)",
-              height: "var(--nav-h)",
-              background: "var(--base, #000)",
-            }}
-          >
-            <img
-              src={logo}
-              alt={logoAlt}
-              ref={logoImgRef}
-              className="w-full h-full object-cover block"
-            />
-          </a>
-        )}
 
         <div
           ref={navItemsRef}
-          className="relative items-center rounded-full hidden md:flex ml-2"
+          className="relative items-center hidden md:flex ml-2"
           style={{
             height: "var(--nav-h)",
             background: "var(--base, #000)",
@@ -379,7 +333,7 @@ const PillNav: React.FC<PillNavProps> = ({
               );
 
               const basePillClasses =
-                "relative overflow-hidden inline-flex items-center justify-center h-full no-underline rounded-full box-border font-semibold text-[16px] leading-[0] uppercase tracking-[0.2px] whitespace-nowrap cursor-pointer px-0";
+                "relative overflow-hidden inline-flex items-center justify-center h-full no-underline box-border font-semibold text-[16px] leading-[0] uppercase tracking-[0.2px] whitespace-nowrap cursor-pointer px-0";
 
               return (
                 <li key={item.href} role="none" className="flex h-full">

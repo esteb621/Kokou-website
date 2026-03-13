@@ -23,6 +23,7 @@ export async function GET(
       .select("*")
       .eq("slug", slug)
       .single();
+      console.log(data);
 
     if (error) throw new Error(error.message);
     return NextResponse.json(data);

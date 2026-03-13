@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { getArticleBySlug, getPublishedArticles } from "@/lib/supabase";
 import { baseUrl } from "@/app/sitemap";
-import Image from "next/image";
+import { BackButton } from "@/components/BackButton";
 
 export const revalidate = 60;
 
@@ -86,24 +86,14 @@ export default async function BlogPost({
         }}
       />
 
-      {article.cover && (
-        <div className="relative w-full h-64 mb-8 rounded-lg overflow-hidden">
-          <Image
-            src={article.cover}
-            alt={article.title}
-            fill
-            className="object-cover"
-          />
-        </div>
-      )}
-
-      <h1 className="title font-semibold text-2xl tracking-tighter">
+      <BackButton />
+      <h1 className="title font-bold text-center text-3xl tracking-tighter">
         {article.title}
       </h1>
 
       <div className="flex justify-between items-center mt-2 mb-8 text-sm">
         <p className="text-sm text-neutral-600">
-          {formatDate(article.created_at)}
+          Published on {formatDate(article.created_at)}
         </p>
       </div>
 

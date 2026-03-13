@@ -12,6 +12,7 @@ import Grainient from "@/components/Grainient";
 import Image from "next/image";
 import { motion } from "motion/react";
 import AnimatedContent from "@/components/AnimatedContent";
+import { Config, getConfig } from "@/lib/supabase";
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
@@ -41,36 +42,14 @@ export const metadata: Metadata = {
   },
 };
 
-const items = [
-  "https://public-files.gumroad.com/3cda66s8xwzvchxtll2p0vp2bkkc",
-  "https://public-files.gumroad.com/sulpw15b6do73bu1mrhn34rqhl3a",
-  "https://public-files.gumroad.com/sq1xmep4r3wrvk66tn5mcsoh9r50",
-  "https://public-files.gumroad.com/3cda66s8xwzvchxtll2p0vp2bkkc",
-  "https://public-files.gumroad.com/qt938s41wa914h181xlkjpgf85dq",
-  "https://public-files.gumroad.com/35cghmufaoroxltsijueio1rxdan",
-  "https://public-files.gumroad.com/t7296x6j8ozc3u70ilmvrxa1mjxd",
-  "https://public-files.gumroad.com/9c8kt0vleqir5wb1m8ebp415yevh",
-  "https://public-files.gumroad.com/lzen6jy91uomppmmiy3oaw6f0k9g",
-  "https://public-files.gumroad.com/rlzxnfiavl5xhzntamdh6jnp5q4v",
-  "https://public-files.gumroad.com/19cd44080m4sspdc9z910pl2sua9",
-  "https://public-files.gumroad.com/ohw6yamj4t6xq9i3770f1gzzre4o",
-  "https://public-files.gumroad.com/3cda66s8xwzvchxtll2p0vp2bkkc",
-  "https://public-files.gumroad.com/tlpy6g54agza6ic3562nokxob0u9",
-  "https://public-files.gumroad.com/rlzxnfiavl5xhzntamdh6jnp5q4v",
-  "https://public-files.gumroad.com/19cd44080m4sspdc9z910pl2sua9",
-  "https://public-files.gumroad.com/ohw6yamj4t6xq9i3770f1gzzre4o",
-  "https://public-files.gumroad.com/vlbz7qranscp65zl557ahac107bj",
-  "https://public-files.gumroad.com/rlzxnfiavl5xhzntamdh6jnp5q4v",
-  "https://public-files.gumroad.com/19cd44080m4sspdc9z910pl2sua9",
-  "https://public-files.gumroad.com/ohw6yamj4t6xq9i3770f1gzzre4o",
-  "https://public-files.gumroad.com/vlbz7qranscp65zl557ahac107bj",
-];
-
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+
+  const config: Config = await getConfig();
+
   return (
     <html
       lang="en"
@@ -83,25 +62,38 @@ export default function RootLayout({
       <head>
         <meta name="apple-mobile-web-app-title" content="Kokou" />
       </head>
-      <body className="antialiased mt-40 overflow-hidden w-full min-h-screen relative">
-
-        <main className="isolate max-w-4xl mx-auto w-full h-full min-w-0 relative z-10 flex flex-col px-4 md:px-0 items-center">
-          <Navbar />
+      <body className="antialiased mt-40 overflow-hidden mx-auto min-w-fit w-full min-h-screen relative">
+        <main className="isolate max-w-4xl mx-auto min-w-0 w-full h-full relative z-10 flex flex-col px-4 md:px-0 items-center">
+          <AnimatedContent
+            className="z-1000 w-full mx-auto"
+            distance={100}
+            direction="vertical"
+            reverse={false}
+            duration={1.5}
+            ease="power3.out"
+            initialOpacity={0}
+            animateOpacity
+            scale={1}
+            threshold={0.1}
+            delay={0.2}
+          >
+            <Navbar />
+          </AnimatedContent>
           <Image
-            className="hidden md:block absolute z-[1001] -top-44 -left-2 lg:-left-16 pointer-events-none w-[clamp(100px,15vw,200px)]"
+            className="hidden md:block absolute z-[1001] -top-44 left-8 lg:-left-16 pointer-events-none w-[200px]"
             src="/assets/topivy.png"
             width={170}
             height={170}
             alt="Top ivy"
           />
           <Image
-            className="hidden md:block absolute z-0 -top-44 -left-2 lg:-left-16 pointer-events-none w-[clamp(100px,15vw,200px)]"
+            className="hidden md:block absolute z-0 -top-44 left-8 lg:-left-16 pointer-events-none w-[200px]"
             src="/assets/underivy.png"
             width={170}
             height={170}
             alt="Under ivy"
           />
-          <div className="flex-1 mt-9 flex flex-col justify-center w-full h-full">
+          <div className="flex-1 mt-9 flex flex-col justify-center w-2xl lg:w-full h-full">
             <AnimatedContent
               distance={100}
               direction="vertical"
@@ -114,20 +106,23 @@ export default function RootLayout({
               threshold={0.1}
               delay={0.2}
             >
-              <Image
-                className="hidden md:block absolute z-0 top-24  lg:-top-[13rem] -right-60 pointer-events-none w-[clamp(100px,35vw,500px)]"
-                src="/assets/1k.png"
-                width={400}
-                height={400}
-                alt="Head Kokou"
-              />
+              {/* Conteneur d'ancrage virtuel pour fixer le point "Bas Gauche" */}
+              <div className="md:block hidden absolute z-0 -top-[0rem] right-[5rem] lg:-top-[0.5rem] lg:right-[3rem]">
+                <Image
+                  className="absolute -bottom-44 -left-52 pointer-events-none w-[500px] max-w-none"
+                  src="/assets/1k.png"
+                  width={500}
+                  height={500}
+                  alt="Head Kokou"
+                />
+              </div>
               <div className="relative w-full">
-                <div className="overflow-y-auto pb-36 pl-12 pt-10 z-[1000] w-full  border-4 bg-[#ffe09d] text-pink-900 h-[calc(100vh-20rem)] border-[#7E384E] p-4">
+                <div className="overflow-y-auto pb-36 pl-12 pt-10 z-[1000] w-full   border-4 bg-[#ffe09d] text-pink-900 h-[calc(100vh-20rem)] border-[#7E384E] p-4">
                   {children}
                 </div>
 
                 <Image
-                  className="hidden hover:opacity-20 transition-opacity md:block absolute z-[1001] -bottom-24 -left-16 lg:-bottom-[5.45rem] lg:-left-24  w-[clamp(100px,25vw,300px)]"
+                  className="hidden hover:opacity-20 transition-opacity md:block absolute z-[1001] -bottom-24 lg:-bottom-[5.45rem] -left-16 lg:-left-24 w-64 lg:w-[300px]"
                   src="/assets/2k.png"
                   width={300}
                   height={300}
@@ -141,27 +136,27 @@ export default function RootLayout({
           <Analytics />
           <SpeedInsights />
         </main>
-          <Image
-            className="hidden hover:opacity-20 transition-opacity lg:block absolute z-[1001] -right-24 bottom-80  w-[clamp(80px,30vw,380px)]"
-            style={{ right: 'clamp(-120px, calc(50vw - 50%), 30px)' }}
-            src="/assets/aboveleaf.png"
-            width={500}
-            height={500}
-            alt="Above leaf"
-          />
-          <Image
-            className="hidden hover:opacity-20 transition-opacity lg:block absolute z-[1000] -right-36 bottom-32 pointer-events-none  w-[clamp(80px,30vw,380px)]"
-            style={{ right: 'clamp(-120px, calc(50vw - 50%), -70px)' }}
-            src="/assets/underleaf.png"
-            width={500}
-            height={500}
-            alt="Under leaf"
-          />
+        <Image
+          className="hidden hover:opacity-20 transition-opacity lg:block absolute z-[1001] -right-24 bottom-80  w-[clamp(80px,30vw,380px)]"
+          style={{ right: "clamp(-120px, calc(50vw - 50%), 30px)" }}
+          src="/assets/aboveleaf.png"
+          width={500}
+          height={500}
+          alt="Above leaf"
+        />
+        <Image
+          className="hidden hover:opacity-20 transition-opacity lg:block absolute z-[1000] -right-36 bottom-32 pointer-events-none  w-[clamp(80px,30vw,380px)]"
+          style={{ right: "clamp(-120px, calc(50vw - 50%), -70px)" }}
+          src="/assets/underleaf.png"
+          width={500}
+          height={500}
+          alt="Under leaf"
+        />
         <div className="fixed top-0 left-0 w-full h-full z-0">
           <Grainient
-            color1="#28E9FD"
-            color2="#11EAFF"
-            color3="#00badf"
+            color1={config.colors.background_primary}
+            color2={config.colors.background_secondary}
+            color3={config.colors.background_accent}
             timeSpeed={1.5}
             colorBalance={0}
             warpStrength={2.5}

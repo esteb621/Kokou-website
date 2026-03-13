@@ -7,6 +7,7 @@ import { createClient } from "@/utils/supabase/client";
 const supabase = createClient();
 import { Input } from "@/components/ui/input";
 import { SimpleEditor } from "@/components/tiptap-templates/simple/simple-editor";
+import { processArticleImages } from "@/lib/tiptap-utils";
 import { Send, SquarePen } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { EditorView } from "@/components/EditorView";
@@ -82,15 +83,22 @@ export default function NewArticlePage() {
     setError("");
     setSuccess("");
 
-    const payload = {
-      ...form,
-      posted: asDraft ? false : true,
+    try {
+      const processedContent = await processArticleImages(
+        form.content,
+        "",
+        form.slug
+      );
+
+      const payload = {
+        ...form,
+        content: processedContent,
+        posted: asDraft ? false : true,
       created_at: form.created_at
         ? form.created_at.slice(0, 10)
         : new Date().toISOString().slice(0, 10),
     };
 
-    try {
       if (fileToUpload) {
         const publicUrl = await uploadToSupabase(fileToUpload);
         payload.cover = publicUrl;
