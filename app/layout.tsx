@@ -10,9 +10,9 @@ import { baseUrl } from "./sitemap";
 import { cx } from "class-variance-authority";
 import Grainient from "@/components/Grainient";
 import Image from "next/image";
-import { motion } from "motion/react";
 import AnimatedContent from "@/components/AnimatedContent";
-import { Config, getConfig } from "@/lib/supabase";
+import { Colors } from "@/lib/types";
+import { getConfigFile } from "@/lib/supabase";
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
@@ -47,9 +47,21 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-
-  const config: Config = await getConfig();
-
+  let colors: Colors;
+  try {
+    colors = await getConfigFile("colors.json");
+  } catch (e) {
+    colors = {
+      primary: "#f472b6",
+      secondary: "#be185d",
+      accent: "#500724",
+      background_primary: "#fce7f3",
+      background_secondary: "#fbcfe8",
+      background_accent: "#f472b6",
+      text_primary: "#f472b6",
+      text_secondary: "#be185d",
+    };
+  }
   return (
     <html
       lang="en"
@@ -154,9 +166,9 @@ export default async function RootLayout({
         />
         <div className="fixed top-0 left-0 w-full h-full z-0">
           <Grainient
-            color1={config.colors.background_primary}
-            color2={config.colors.background_secondary}
-            color3={config.colors.background_accent}
+            color1={colors.background_primary}
+            color2={colors.background_secondary}
+            color3={colors.background_accent}
             timeSpeed={1.5}
             colorBalance={0}
             warpStrength={2.5}

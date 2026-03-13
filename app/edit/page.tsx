@@ -2,7 +2,7 @@
 
 import "./edit.css";
 import { useState, useCallback, useEffect } from "react";
-import type { Article } from "@/lib/supabase";
+import type { Article } from "@/lib/types";
 import { useRouter } from "next/navigation";
 import { PlusIcon, RefreshCcw } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";

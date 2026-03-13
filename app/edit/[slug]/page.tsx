@@ -2,7 +2,7 @@
 
 import "../edit.css";
 import { useState, useCallback, useEffect } from "react";
-import type { Article } from "@/lib/supabase";
+import type { Article } from "@/lib/types";
 import { createClient } from "@/utils/supabase/client";
 const supabase = createClient();
 import { Input } from "@/components/ui/input";
