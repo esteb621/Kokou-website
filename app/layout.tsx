@@ -53,29 +53,35 @@ export default async function RootLayout({
   } catch (e) {
     colors = {
       primary: "#f472b6",
-      secondary: "#be185d",
-      accent: "#500724",
-      background_primary: "#fce7f3",
-      background_secondary: "#fbcfe8",
-      background_accent: "#f472b6",
-      text_primary: "#f472b6",
-      text_secondary: "#be185d",
+      secondary: "#f9a8d4",
+      accent: "#7d3845",
+      background: "#fee19f",
+      text_primary: "#500724",
+      text_secondary: "#9d174d",
     };
   }
   return (
     <html
       lang="en"
       className={cx(
-        "text-black bg-white dark:text-white dark:bg-black",
+        "text-text-primary bg-background",
         GeistSans.variable,
         GeistMono.variable,
       )}
+      style={{
+        "--primary": colors.primary,
+        "--secondary": colors.secondary,
+        "--accent": colors.accent,
+        "--background": colors.background,
+        "--text-primary": colors.text_primary,
+        "--text-secondary": colors.text_secondary,
+      } as React.CSSProperties}
     >
       <head>
         <meta name="apple-mobile-web-app-title" content="Kokou" />
       </head>
-      <body className="antialiased mt-40 overflow-hidden mx-auto min-w-fit w-full min-h-screen relative">
-        <main className="isolate max-w-4xl mx-auto min-w-0 w-full h-full relative z-10 flex flex-col px-4 md:px-0 items-center">
+      <body className="mt-40 overflow-hidden mx-auto w-full min-h-screen relative">
+        <main className="isolate max-w-4xl mx-auto min-w-0 h-full relative z-10 flex flex-col px-4 md:px-0 items-center">
           <AnimatedContent
             className="z-1000 w-full mx-auto"
             distance={100}
@@ -129,7 +135,7 @@ export default async function RootLayout({
                 />
               </div>
               <div className="relative w-full">
-                <div className="overflow-y-auto pb-36 pl-12 pt-10 z-[1000] w-full   border-4 bg-[#ffe09d] text-pink-900 h-[calc(100vh-20rem)] border-[#7E384E] p-4">
+                <div className="overflow-y-auto overflow-x-hidden pb-36 pl-12 pt-10 z-[1000] w-full   border-4 bg-background text-text-primary max-h-[calc(100vh-20rem)] border-accent p-4">
                   {children}
                 </div>
 
@@ -166,9 +172,9 @@ export default async function RootLayout({
         />
         <div className="fixed top-0 left-0 w-full h-full z-0">
           <Grainient
-            color1={colors.background_primary}
-            color2={colors.background_secondary}
-            color3={colors.background_accent}
+            color1={colors["bg-gradient-1"]}
+            color2={colors["bg-gradient-2"]}
+            color3={colors["bg-gradient-3"]}
             timeSpeed={1.5}
             colorBalance={0}
             warpStrength={2.5}

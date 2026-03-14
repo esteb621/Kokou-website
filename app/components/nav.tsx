@@ -26,10 +26,10 @@ export function Navbar() {
       logo={logo}
       className="custom-nav"
       ease="power2.easeOut"
-      baseColor="#7E384E"
-      pillColor="#ffffff"
-      hoveredPillTextColor="#ffffff"
-      pillTextColor="#7E384E"
+      baseColor="var(--accent)"
+      pillColor="white"
+      hoveredPillTextColor="white"
+      pillTextColor="var(--text-secondary)"
       initialLoadAnimation={false}
     />
   );

@@ -1,3 +1,5 @@
+import fs from "fs";
+import path from "path";
 import { createClient } from "@/utils/supabase/server";
 import { Article } from "./types";
 
@@ -6,6 +8,18 @@ async function getSupabase() {
 }
 
 export async function getConfigFile(fileName: string): Promise<any> {
+  if (process.env.NODE_ENV === "development") {
+    try {
+      const localPath = path.join(process.cwd(), "public", fileName);
+      if (fs.existsSync(localPath)) {
+        const content = fs.readFileSync(localPath, "utf-8");
+        return JSON.parse(content);
+      }
+    } catch (e) {
+      console.error(`Error reading local config file ${fileName}:`, e);
+    }
+  }
+
   const sb = await getSupabase();
   const { data, error } = await sb.storage
     .from("website_json")
@@ -13,6 +27,14 @@ export async function getConfigFile(fileName: string): Promise<any> {
   if (error) throw new Error(error.message);
   const json = await data.text();
   return JSON.parse(json);
+}
+
+export async function updateConfigFile(fileName: string, content: any): Promise<void> {
+  const sb = await getSupabase();
+  const { error } = await sb.storage
+    .from("website_json")
+    .update(fileName, JSON.stringify(content));
+  if (error) throw new Error(error.message);
 }
 
 /** Récupère tous les articles publiés, triés par date de publication */
@@ -40,3 +62,4 @@ export async function getArticleBySlug(slug: string): Promise<Article | null> {
   if (error) return null;
   return data;
 }
+

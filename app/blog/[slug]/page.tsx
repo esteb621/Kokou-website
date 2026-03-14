@@ -92,7 +92,7 @@ export default async function BlogPost({
       </h1>
 
       <div className="flex justify-between items-center mt-2 mb-8 text-sm">
-        <p className="text-sm text-neutral-600">
+        <p className="text-sm text-text-secondary">
           Published on {formatDate(article.created_at)}
         </p>
       </div>

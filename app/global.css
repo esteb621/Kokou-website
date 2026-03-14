@@ -3,15 +3,16 @@
 @import "../styles/_keyframe-animations.scss";
 
 @theme {
-  --color-primary: var(--dynamic-primary);
-  --color-secondary: var(--dynamic-secondary);
-  --color-accent: var(--dynamic-accent);
-  --color-background-main: var(--dynamic-background);
-  --color-text-main: var(--dynamic-text);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-background: var(--background);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
 }
 ::selection {
-  background-color: #47a3f3;
-  color: #fefefe;
+  background-color: var(--secondary);
+  color: var(--text-primary);
 }
 
 :root {
@@ -57,11 +58,11 @@ html {
 }
 
 .prose a {
-  @apply underline transition-all decoration-pink-600 underline-offset-2 decoration-[0.1em] text-pink-950;
+  @apply underline transition-all decoration-primary underline-offset-2 decoration-[0.1em] text-text-primary;
 }
 
 .prose .anchor:after {
-  @apply text-pink-800;
+  @apply text-text-secondary;
   content: "#";
 }
 
@@ -70,7 +71,7 @@ html {
 }
 
 .prose pre {
-  @apply bg-orange-50/50 rounded-lg overflow-x-auto border border-pink-200 py-2 px-3 text-sm;
+  @apply bg-secondary/30 rounded-lg overflow-x-auto border border-primary py-2 px-3 text-sm;
 }
 
 .prose code {
@@ -93,35 +94,35 @@ html {
 }
 
 .prose p {
-  @apply my-4 text-pink-900;
+  @apply my-4 text-text-primary;
 }
 
 .prose h1 {
-  @apply text-4xl font-medium tracking-tight mt-6 mb-2 text-pink-950;
+  @apply text-4xl font-medium tracking-tight mt-6 mb-2 text-text-primary;
 }
 
 .prose h2 {
-  @apply text-xl font-medium tracking-tight mt-6 mb-2 text-pink-950;
+  @apply text-xl font-medium tracking-tight mt-6 mb-2 text-text-primary;
 }
 
 .prose h3 {
-  @apply text-xl font-medium tracking-tight mt-6 mb-2 text-pink-950;
+  @apply text-xl font-medium tracking-tight mt-6 mb-2 text-text-primary;
 }
 
 .prose h4 {
-  @apply text-lg font-medium tracking-tight mt-6 mb-2 text-pink-950;
+  @apply text-lg font-medium tracking-tight mt-6 mb-2 text-text-primary;
 }
 
 .prose strong {
-  @apply font-medium text-pink-950;
+  @apply font-medium text-text-primary;
 }
 
 .prose ul {
-  @apply list-disc pl-6 text-pink-900;
+  @apply list-disc pl-6 text-text-primary;
 }
 
 .prose ol {
-  @apply list-decimal pl-6 text-pink-900;
+  @apply list-decimal pl-6 text-text-primary;
 }
 
 .prose > :first-child {
