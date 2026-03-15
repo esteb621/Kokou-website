@@ -4,7 +4,7 @@ import "./edit.css";
 import { useState, useCallback, useEffect } from "react";
 import type { Article } from "@/lib/types";
 import { useRouter } from "next/navigation";
-import { PlusIcon, RefreshCcw } from "lucide-react";
+import { PlusIcon, RefreshCcw, Settings } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
@@ -82,7 +82,13 @@ export default function ListPage() {
             onClick={() => router.push("/edit/new")}
             className="btn-primary flex items-center gap-2"
           >
-            <PlusIcon size={14} /> New
+            <PlusIcon size={14} /> New post
+          </button>
+          <button
+            onClick={() => router.push("/edit/config")}
+            className="btn-secondary flex items-center gap-2"
+          >
+            <Settings size={20} />
           </button>
         </div>
       </div>

@@ -41,13 +41,17 @@ const fadeUp = {
   }),
 };
 
-const Products: React.FC<{ category: any; index: number }> = ({
+const Products: React.FC<{ category: any[]; index: number }> = ({
   category,
   index,
 }) => {
-  return category.map((product: any, j: number) => (
+  const sortedCategory = [...category].sort(
+    (a, b) => (a.priority || 99) - (b.priority || 99)
+  );
+
+  return sortedCategory.map((product: any, j: number) => (
     <motion.a
-      key={product.name}
+      key={product.title}
       href={product.link}
       target="_blank"
       rel="noopener noreferrer"
@@ -88,8 +92,8 @@ const Products: React.FC<{ category: any; index: number }> = ({
               <span className="text-sm font-medium uppercase">Price</span>
               <span className="text-xl font-semibold">{product.price}</span>
             </div>
-            <Button size="lg" className="text-secondary">
-              See on Gumroad
+            <Button size="lg" className=" bg-accent text-secondary">
+              See on Jinxxy
             </Button>
           </CardFooter>
         </Card>
@@ -121,7 +125,8 @@ export default function LandingContent({ config }: { config: Config }) {
           custom={1}
           variants={fadeUp}
         >
-          Hey, I'm{" "}
+          {/* Take all text expect last element */}
+          {config.hero.title.split(" ").slice(0, -1).join(" ") + " "} 
           <GradientText
             showBorder={false}
             animationSpeed={8}
@@ -132,13 +137,13 @@ export default function LandingContent({ config }: { config: Config }) {
               "var(--text-primary)",
             ]}
           >
-            Kokou
+            {config.hero.title.split(" ").slice(-1).join(" ")}
           </GradientText>{" "}
           👋
         </motion.h1>
 
         <motion.p
-          className="text-base md:text-lg text-primary max-w-xl leading-relaxed"
+          className="text-base md:text-lg text-primary max-w-2xl leading-relaxed"
           initial="hidden"
           animate="visible"
           custom={2}
@@ -160,17 +165,8 @@ export default function LandingContent({ config }: { config: Config }) {
             rel="noopener noreferrer"
             className="flex items-center gap-2 bg-accent hover:bg-text-primary text-white px-4 py-2 rounded-xl font-semibold text-sm transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
           >
-            <GumroadIcon size={15} />
-            Shop on Gumroad
-          </a>
-          <a
-            href="https://www.tiktok.com/@kokouuwu"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 bg-secondary hover:bg-primary hover:text-white text-text-primary/80 border border-primary px-4 py-2 rounded-xl font-semibold text-sm transition-all hover:-translate-y-0.5 active:translate-y-0"
-          >
-            <TiktokIcon size={15} />
-            @kokouuwu
+            <Icon icon="material-symbols:shopping-cart-outline" className="w-5 h-5"/>
+            Shop on Jinxxy
           </a>
         </motion.div>
       </div>
@@ -208,14 +204,11 @@ export default function LandingContent({ config }: { config: Config }) {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.6 + i * 0.07, duration: 0.3 }}
             >
-              <div className="text-2xl flex-shrink-0 text-text-secondary group-hover:scale-110 transition-transform">
+              <div className="text-2xl flex-shrink-0 group-hover:cursor-pointer text-text-secondary group-hover:scale-110 transition-transform">
                 <Icon icon={data.icon} />
               </div>
               <div className="flex flex-col min-w-0">
                 <span className="text-sm font-bold text-text-secondary truncate capitalize">
-                  {data.label}
-                </span>
-                <span className="text-[10px] text-text-secondary truncate">
                   {data.label}
                 </span>
               </div>
@@ -271,7 +264,7 @@ export default function LandingContent({ config }: { config: Config }) {
         </div>
       </motion.div>
 
-      {/* ── Featured Gumroad Products ── */}
+      {/* ── Featured Jinxxy Products ── */}
       <motion.div
         className="flex flex-col gap-4"
         initial="hidden"
@@ -283,11 +276,11 @@ export default function LandingContent({ config }: { config: Config }) {
           <div className="flex items-center gap-3">
             <span className="h-[1.5px] w-6 bg-primary rounded" />
             <span className="text-primary text-xs tracking-widest uppercase font-semibold">
-              Featured Products
+              Featured Jinxxy Products
             </span>
           </div>
           <a
-            href="https://kokou.gumroad.com/"
+            href="https://jinxxy.com/Kokou"
             target="_blank"
             rel="noopener noreferrer"
             className="text-md font-semibold text-primary hover:underline flex items-center gap-1"
@@ -297,11 +290,15 @@ export default function LandingContent({ config }: { config: Config }) {
         </div>
 
         {Object.keys(config.products).map((category: any, i) => (
-          <div key={category} className="space-y-8">
-            <h2 className="text-xl w-full text-center font-bold mb-4 text-text-primary">
-              {String(category).charAt(0).toUpperCase() +
-                String(category).slice(1)}
-            </h2>
+          <div key={category} className="mb-12">
+            <div className="flex items-center gap-3 my-6">
+              <span className="flex-1 h-[1.5px] bg-gradient-to-r from-bg-accent to-bg-accent/30 rounded" />
+              <span className="text-bg-accent text-xl font-semibold">
+                {String(category).charAt(0).toUpperCase() +
+                  String(category).slice(1)}
+              </span>
+              <span className="flex-1 h-[1.5px] bg-gradient-to-l from-bg-accent/50 to-bg-accent/30 rounded" />
+            </div>
 
             <div
               className="grid grid-cols-1 md:grid-cols-2 gap-4"

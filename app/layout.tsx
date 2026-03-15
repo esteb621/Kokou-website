@@ -58,6 +58,9 @@ export default async function RootLayout({
       background: "#fee19f",
       text_primary: "#500724",
       text_secondary: "#9d174d",
+      "bg-gradient-1": "#fee19f",
+      "bg-gradient-2": "#fee19f",
+      "bg-gradient-3": "#fee19f",
     };
   }
   return (
@@ -80,7 +83,7 @@ export default async function RootLayout({
       <head>
         <meta name="apple-mobile-web-app-title" content="Kokou" />
       </head>
-      <body className="mt-40 overflow-hidden mx-auto w-full min-h-screen relative">
+      <body className="mt-40 overflow-hidden mx-auto w-full min-h-screen h-full relative">
         <main className="isolate max-w-4xl mx-auto min-w-0 h-full relative z-10 flex flex-col px-4 md:px-0 items-center">
           <AnimatedContent
             className="z-1000 w-full mx-auto"
@@ -135,7 +138,7 @@ export default async function RootLayout({
                 />
               </div>
               <div className="relative w-full">
-                <div className="overflow-y-auto overflow-x-hidden pb-36 pl-12 pt-10 z-[1000] w-full   border-4 bg-background text-text-primary max-h-[calc(100vh-20rem)] border-accent p-4">
+                <div className="overflow-y-auto overflow-x-hidden pb-52 px-12 pt-10 z-[1000] w-full   border-4 bg-background text-text-primary max-h-[calc(100vh-30vh)] border-accent p-4">
                   {children}
                 </div>
 
@@ -155,7 +158,7 @@ export default async function RootLayout({
           <SpeedInsights />
         </main>
         <Image
-          className="hidden hover:opacity-20 transition-opacity lg:block absolute z-[1001] -right-24 bottom-80  w-[clamp(80px,30vw,380px)]"
+          className="hidden pointer-events-none transition-opacity lg:block absolute z-[1001] -right-24 bottom-80  w-[clamp(80px,30vw,380px)]"
           style={{ right: "clamp(-120px, calc(50vw - 50%), 30px)" }}
           src="/assets/aboveleaf.png"
           width={500}
@@ -163,7 +166,7 @@ export default async function RootLayout({
           alt="Above leaf"
         />
         <Image
-          className="hidden hover:opacity-20 transition-opacity lg:block absolute z-[1000] -right-36 bottom-32 pointer-events-none  w-[clamp(80px,30vw,380px)]"
+          className="hidden pointer-events-none transition-opacity lg:block absolute z-[1000] -right-36 bottom-32  w-[clamp(80px,30vw,380px)]"
           style={{ right: "clamp(-120px, calc(50vw - 50%), -70px)" }}
           src="/assets/underleaf.png"
           width={500}

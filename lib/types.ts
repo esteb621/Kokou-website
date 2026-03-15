@@ -19,28 +19,34 @@ export type Config = {
     label: string;
     url: string;
     icon: string;
+    _deleted?: boolean;
   }>;
   skills: {
     label: string;
     icon: string;
     detail: string;
+    _deleted?: boolean;
   }[];
   products: {
     avatars: {
-      name: string;
+      priority: number;
+      title: string;
       description: string;
       image: string;
       link: string;
       review: string;
-      price: number;
+      price: string;
+      _deleted?: boolean;
     }[];
     assets: {
-      name: string;
+      priority: number;
+      title: string;
       description: string;
       image: string;
       link: string;
       review: string;
-      price: number;
+      price: string;
+      _deleted?: boolean;
     }[];
   };
 };

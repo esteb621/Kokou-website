@@ -2,6 +2,8 @@
 import PillNav, { PillNavItem } from "@/components/PillNav";
 import { usePathname } from "next/navigation";
 import logo from "@/public/vercel.svg";
+
+const email = process.env.NEXT_PUBLIC_EMAIL;
 const navItems: PillNavItem[] = [
   {
     label: "Home",
@@ -13,7 +15,7 @@ const navItems: PillNavItem[] = [
   },
   {
     label: "Contact",
-    href: "/contact",
+    href: `mailto:${email}`,
   },
 ];
 

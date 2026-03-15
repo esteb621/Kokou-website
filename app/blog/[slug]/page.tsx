@@ -86,7 +86,7 @@ export default async function BlogPost({
         }}
       />
 
-      <BackButton />
+      <BackButton path="/blog" />
       <h1 className="title font-bold text-center text-3xl tracking-tighter">
         {article.title}
       </h1>

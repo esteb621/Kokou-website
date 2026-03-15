@@ -9,7 +9,7 @@ async function getServiceClient() {
 }
 
 // Get the absolute path to config.json
-const getConfigPath = () => path.join(process.cwd(), "config.json");
+const getConfigPath = () => path.join(process.cwd(), "public", "config.json");
 
 // GET /api/config — read configuration file (public access, or we can secure it if needed, but typically GET config is public)
 export async function GET(req: NextRequest) {

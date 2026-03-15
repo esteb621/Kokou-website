@@ -2,6 +2,7 @@ import { Article } from "@/lib/types";
 import { Send, SquarePen, Trash } from "lucide-react";
 import { Input } from "./ui/input";
 import { SimpleEditor } from "./tiptap-templates/simple/simple-editor";
+import { BackButton } from "./BackButton";
 
 function slugify(str: string): string {
   return str
@@ -46,9 +47,7 @@ export function EditorView({
   return (
     <div className="editor-view">
       <div className="editor-header">
-        <button onClick={onBack} className="btn-back">
-          ← Back
-        </button>
+        <BackButton path="/edit" />
         <h2 className="editor-title">{title}</h2>
         <div className="editor-header-actions">
           {onDelete && (
