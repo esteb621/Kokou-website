@@ -81,7 +81,6 @@ export async function DELETE(
 
   try {
     const { slug } = await params;
-
     const { error } = await sb.from("articles").delete().eq("slug", slug);
 
     if (error) throw new Error(error.message);

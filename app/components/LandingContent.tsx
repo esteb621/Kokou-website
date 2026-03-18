@@ -160,7 +160,7 @@ export default function LandingContent({ config }: { config: Config }) {
           variants={fadeUp}
         >
           <a
-            href="https://kokou.gumroad.com/"
+            href="https://jinxxy.com/Kokou"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 bg-accent hover:bg-text-primary text-white px-4 py-2 rounded-xl font-semibold text-sm transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"

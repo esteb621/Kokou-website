@@ -41,6 +41,11 @@
 
 html {
   min-width: 360px;
+  background: linear-gradient(
+    127deg,
+    rgba(40, 233, 253, 1) 0%,
+    rgba(0, 224, 200, 1) 100%
+  );
 }
 
 .prose .anchor {

@@ -83,8 +83,8 @@ export default async function RootLayout({
       <head>
         <meta name="apple-mobile-web-app-title" content="Kokou" />
       </head>
-      <body className="mt-40 overflow-hidden mx-auto w-full min-h-screen h-full relative">
-        <main className="isolate max-w-4xl mx-auto min-w-0 h-full relative z-10 flex flex-col px-4 md:px-0 items-center">
+      <body className="mt-24 md:mt-40 mx-auto w-full min-h-screen h-full relative">
+        <main className="isolate max-w-4xl mx-auto min-w-0 h-full relative z-10 flex flex-col px-2 md:px-0 items-center">
           <AnimatedContent
             className="z-1000 w-full mx-auto"
             distance={100}
@@ -114,7 +114,7 @@ export default async function RootLayout({
             height={170}
             alt="Under ivy"
           />
-          <div className="flex-1 mt-9 flex flex-col justify-center w-2xl lg:w-full h-full">
+          <div className="flex-1 mt-9 flex flex-col justify-center w-full h-full">
             <AnimatedContent
               distance={100}
               direction="vertical"
@@ -138,7 +138,7 @@ export default async function RootLayout({
                 />
               </div>
               <div className="relative w-full">
-                <div className="overflow-y-auto overflow-x-hidden pb-52 px-12 pt-10 z-[1000] w-full   border-4 bg-background text-text-primary max-h-[calc(100vh-30vh)] border-accent p-4">
+                <div className="overflow-y-auto overflow-x-hidden pb-24 md:pb-52 px-4 md:px-12 pt-6 md:pt-10 z-[1000] w-full border-4 bg-background text-text-primary max-h-[calc(100dvh-20vh)] md:max-h-[calc(100vh-30vh)] border-accent p-4">
                   {children}
                 </div>
 

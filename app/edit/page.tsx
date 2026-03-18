@@ -45,9 +45,9 @@ export default function ListPage() {
     fetchArticles();
   }, [fetchArticles]);
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (slug: string) => {
     try {
-      const res = await fetch(`/api/articles/${id}`, { method: "DELETE" });
+      const res = await fetch(`/api/articles/${slug}`, { method: "DELETE" });
       if (!res.ok) throw new Error("Failed to delete article");
       setDeleteConfirm(null);
       await fetchArticles();
@@ -136,11 +136,11 @@ export default function ListPage() {
                 >
                   Edit
                 </button>
-                {deleteConfirm === article.id ? (
+                {deleteConfirm === article.slug ? (
                   <div className="delete-confirm">
                     <span>Delete?</span>
                     <button
-                      onClick={() => handleDelete(article.id || "")}
+                      onClick={() => handleDelete(article.slug || "")}
                       className="btn-confirm-delete"
                     >
                       Yes
@@ -154,7 +154,7 @@ export default function ListPage() {
                   </div>
                 ) : (
                   <button
-                    onClick={() => setDeleteConfirm(article.id || "")}
+                    onClick={() => setDeleteConfirm(article.slug || "")}
                     className="btn-delete"
                   >
                     🗑
