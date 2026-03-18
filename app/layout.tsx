@@ -174,30 +174,30 @@ export default async function RootLayout({
           alt="Under leaf"
         />
         <div className="fixed top-0 left-0 w-full h-full z-0">
-          <Grainient
-            color1={colors["bg-gradient-1"]}
-            color2={colors["bg-gradient-2"]}
-            color3={colors["bg-gradient-3"]}
-            timeSpeed={1.5}
-            colorBalance={0}
-            warpStrength={2.5}
-            warpFrequency={9}
-            warpSpeed={2}
-            warpAmplitude={65}
-            blendAngle={90}
-            blendSoftness={0}
-            rotationAmount={500}
-            noiseScale={2}
-            grainAmount={0.1}
-            grainScale={2}
-            grainAnimated={false}
-            contrast={1.5}
-            gamma={1}
-            saturation={1}
-            centerX={0}
-            centerY={0}
-            zoom={0.6}
-          />
+  <Grainient
+    color1="#1fe5ff"
+    color2="#008ae0"
+    color3="#00e096"
+    timeSpeed={1}
+    colorBalance={-0.19}
+    warpStrength={1}
+    warpFrequency={12}
+    warpSpeed={1.4}
+    warpAmplitude={40}
+    blendAngle={3}
+    blendSoftness={0}
+    rotationAmount={0}
+    noiseScale={0}
+    grainAmount={0}
+    grainScale={2}
+    grainAnimated={false}
+    contrast={1.5}
+    gamma={1.15}
+    saturation={1.9}
+    centerX={0}
+    centerY={0}
+    zoom={1}
+  />
         </div>
       </body>
     </html>

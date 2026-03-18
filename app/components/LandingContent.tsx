@@ -104,7 +104,7 @@ const Products: React.FC<{ category: any[]; index: number }> = ({
 
 export default function LandingContent({ config }: { config: Config }) {
   return (
-    <section className="text-text-primary w-full flex flex-col gap-12">
+    <section className="text-text-primary w-full flex flex-col gap-8">
       {/* ── Hero ── */}
       <div className="flex flex-col gap-4 mt-4">
         <motion.div
