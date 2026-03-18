@@ -8,18 +8,6 @@ async function getSupabase() {
 }
 
 export async function getConfigFile(fileName: string): Promise<any> {
-  if (process.env.NODE_ENV === "development") {
-    try {
-      const localPath = path.join(process.cwd(), "public", fileName);
-      if (fs.existsSync(localPath)) {
-        const content = fs.readFileSync(localPath, "utf-8");
-        return JSON.parse(content);
-      }
-    } catch (e) {
-      console.error(`Error reading local config file ${fileName}:`, e);
-    }
-  }
-
   const sb = await getSupabase();
   const { data, error } = await sb.storage
     .from("website_json")
