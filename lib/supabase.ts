@@ -1,14 +1,22 @@
 import fs from "fs";
 import path from "path";
 import { createClient } from "@/utils/supabase/server";
+import { createClient as createStaticClient } from "@supabase/supabase-js";
 import { Article } from "./types";
 
 async function getSupabase() {
   return createClient();
 }
 
+function getStaticSupabase() {
+  return createStaticClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!
+  );
+}
+
 export async function getConfigFile(fileName: string): Promise<any> {
-  const sb = await getSupabase();
+  const sb = getStaticSupabase();
   const { data, error } = await sb.storage
     .from("website_json")
     .download(fileName);
@@ -27,7 +35,7 @@ export async function updateConfigFile(fileName: string, content: any): Promise<
 
 /** Récupère tous les articles publiés, triés par date de publication */
 export async function getPublishedArticles(): Promise<Article[]> {
-  const sb = await getSupabase();
+  const sb = getStaticSupabase();
   const { data, error } = await sb
     .from("articles")
     .select("*")
@@ -40,7 +48,7 @@ export async function getPublishedArticles(): Promise<Article[]> {
 
 /** Récupère un article par son slug */
 export async function getArticleBySlug(slug: string): Promise<Article | null> {
-  const sb = await getSupabase();
+  const sb = getStaticSupabase();
   const { data, error } = await sb
     .from("articles")
     .select("*")
