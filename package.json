@@ -1,5 +1,10 @@
 {
   "private": true,
+  "packageManager": "pnpm@10.11.1",
+  "packages": [
+    "app/*",
+    "packages/*"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -67,5 +72,14 @@
     "sass": "^1.98.0",
     "tsx": "^4.21.0",
     "wrangler": "^4.75.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@parcel/watcher",
+      "@vercel/speed-insights",
+      "esbuild",
+      "msw",
+      "sharp"
+    ]
   }
 }
