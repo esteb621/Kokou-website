@@ -13,7 +13,7 @@ const useMedia = (
   queries: string[],
   values: number[],
   defaultValue: number,
-): number => {
+): number => 
   const get = () => {
     if (typeof window === "undefined" || typeof window.matchMedia === "undefined") {
       return defaultValue;

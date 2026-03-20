@@ -14,6 +14,8 @@ import AnimatedContent from "@/components/AnimatedContent";
 import { Colors } from "@/lib/types";
 import { getConfigFile } from "@/lib/supabase";
 
+export const revalidate = 60; // Revalider le cache toutes les 60 secondes
+
 export async function generateMetadata(): Promise<Metadata> {
   let config: any;
   try {

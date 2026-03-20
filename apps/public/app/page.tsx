@@ -3,6 +3,8 @@ import { Config } from "@/lib/types";
 import { getConfigFile } from "@/lib/supabase";
 import LandingContent from "./components/LandingContent";
 
+export const revalidate = 60; // Revalider le cache toutes les 60 secondes
+
 export default async function Page() {
   let config: Config;
   try {
