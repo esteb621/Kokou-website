@@ -1,4 +1,5 @@
 {
+  "name": "public",
   "private": true,
   "packageManager": "pnpm@10.11.1",
   "scripts": {
