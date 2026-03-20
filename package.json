@@ -9,7 +9,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "build:worker": "NODE_OPTIONS=--max-old-space-size=4096 next build && opennextjs-cloudflare build",
+    "build:worker": "NODE_OPTIONS=--max-old-space-size=8192 next build && opennextjs-cloudflare build",
     "preview": "opennextjs-cloudflare build && wrangler dev",
     "deploy": "opennextjs-cloudflare build && wrangler deploy",
     "sync:drive": "tsx scripts/sync-google-drive.ts"
