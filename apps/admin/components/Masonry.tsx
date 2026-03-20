@@ -1,19 +1,17 @@
 "use client";
-import React, {
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
-import { gsap } from "gsap";
+import { useLayoutEffect } from "react";
+import { useMemo } from "react";
+import { useRef } from "react";
+import { useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
+import gsap from "gsap";
 
 const useMedia = (
   queries: string[],
   values: number[],
   defaultValue: number,
-): number => 
+): number => {
   const get = () => {
     if (typeof window === "undefined" || typeof window.matchMedia === "undefined") {
       return defaultValue;
