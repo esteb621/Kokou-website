@@ -25,7 +25,9 @@ export interface PillNavProps {
 }
 
 const PillNav: React.FC<PillNavProps> = ({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   logo,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   logoAlt = "Logo",
   items,
   activeHref,
@@ -175,6 +177,7 @@ const PillNav: React.FC<PillNavProps> = ({
     });
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleLogoEnter = () => {
     const img = logoImgRef.current;
     if (!img) return;

@@ -74,7 +74,7 @@ export default function ConfigEditor({
   };
 
   const toggleSkillDelete = (index: number, deleted: boolean) => {
-    const newSkills: any = [...config.skills];
+    const newSkills = [...config.skills] as Array<typeof config.skills[0] & { _deleted?: boolean }>;
     newSkills[index] = { ...newSkills[index], _deleted: deleted };
     setConfig({ ...config, skills: newSkills });
   };
@@ -86,7 +86,7 @@ export default function ConfigEditor({
     value: string | number,
   ) => {
     const newCategory = [...config.products[category]];
-    newCategory[index] = { ...newCategory[index], [field]: value } as any;
+    newCategory[index] = { ...newCategory[index], [field]: value } as unknown as typeof newCategory[0];
     setConfig({
       ...config,
       products: { ...config.products, [category]: newCategory },
@@ -113,7 +113,7 @@ export default function ConfigEditor({
   };
 
   const toggleProductDelete = (category: "avatars" | "assets", index: number, deleted: boolean) => {
-    const newCategory: any = [...config.products[category]];
+    const newCategory = [...config.products[category]] as Array<typeof config.products[typeof category][0] & { _deleted?: boolean }>;
     newCategory[index] = { ...newCategory[index], _deleted: deleted };
     setConfig({
       ...config,

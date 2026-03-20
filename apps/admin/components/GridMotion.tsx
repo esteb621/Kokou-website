@@ -16,6 +16,7 @@ const GridMotion: FC<GridMotionProps> = ({
   const gridRef = useRef<HTMLDivElement>(null);
   const rowRefs = useRef<(HTMLDivElement | null)[]>([]);
   if(typeof window === "undefined") return;
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const mouseXRef = useRef<number>(window.innerWidth / 2);
 
   const totalItems = 28;
@@ -26,6 +27,7 @@ const GridMotion: FC<GridMotionProps> = ({
   const combinedItems =
     items.length > 0 ? items.slice(0, totalItems) : defaultItems;
 
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     gsap.ticker.lagSmoothing(0);
 

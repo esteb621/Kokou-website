@@ -37,26 +37,29 @@ export default function ConfigManagerClient({
 
     if (clean.skills) {
       clean.skills = clean.skills
-        .filter((s: any) => !s._deleted)
-        .map((s: any) => {
-          const { _, ...rest } = s;
-          return rest;
+        .filter((s: Record<string, unknown> & { _deleted?: boolean }) => !s._deleted)
+        .map((s: Record<string, unknown> & { _deleted?: boolean }) => {
+          const copy = { ...s };
+          delete copy._deleted;
+          return copy;
         });
     }
     if (clean.products?.avatars) {
       clean.products.avatars = clean.products.avatars
-        .filter((p: any) => !p._deleted)
-        .map((p: any) => {
-          const { _, ...rest } = p;
-          return rest;
+        .filter((p: Record<string, unknown> & { _deleted?: boolean }) => !p._deleted)
+        .map((p: Record<string, unknown> & { _deleted?: boolean }) => {
+          const copy = { ...p };
+          delete copy._deleted;
+          return copy;
         });
     }
     if (clean.products?.assets) {
       clean.products.assets = clean.products.assets
-        .filter((p: any) => !p._deleted)
-        .map((p: any) => {
-          const { _, ...rest } = p;
-          return rest;
+        .filter((p: Record<string, unknown> & { _deleted?: boolean }) => !p._deleted)
+        .map((p: Record<string, unknown> & { _deleted?: boolean }) => {
+          const copy = { ...p };
+          delete copy._deleted;
+          return copy;
         });
     }
     return clean;

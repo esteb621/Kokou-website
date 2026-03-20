@@ -6,7 +6,7 @@ async function getServiceClient() {
 }
 
 // GET /api/articles — list all articles (published or not)
-export async function GET(req: NextRequest) {
+export async function GET() {
   const sb = await getServiceClient();
   const {
     data: { user },

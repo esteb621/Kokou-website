@@ -65,7 +65,7 @@ import { useWindowSize } from "@/hooks/use-window-size"
 import { useCursorVisibility } from "@/hooks/use-cursor-visibility"
 
 // --- Components ---
-import { ThemeToggle } from "@/components/tiptap-templates/simple/theme-toggle"
+
 
 // --- Lib ---
 import { handleImageUpload, MAX_FILE_SIZE } from "@/lib/tiptap-utils"
@@ -246,16 +246,22 @@ export function SimpleEditor({
     }
   }, [value, editor])
 
-  const rect = useCursorVisibility({
-    editor,
-    overlayHeight: toolbarRef.current?.getBoundingClientRect().height ?? 0,
-  })
+  const [overlayHeight, setOverlayHeight] = useState(0)
 
   useEffect(() => {
-    if (!isMobile && mobileView !== "main") {
-      setMobileView("main")
+    if (toolbarRef.current) {
+      setOverlayHeight(toolbarRef.current.getBoundingClientRect().height)
     }
-  }, [isMobile, mobileView])
+  }, [])
+
+  const rect = useCursorVisibility({
+    editor,
+    overlayHeight,
+  })
+
+  if (!isMobile && mobileView !== "main") {
+    setMobileView("main")
+  }
 
   return (
     <div className="simple-editor-wrapper">

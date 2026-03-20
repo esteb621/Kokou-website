@@ -238,15 +238,21 @@ export function ArticleEditor({ value, onChange }: ArticleEditorProps) {
     }
   }, [value, editor])
 
+  if (!isMobile && mobileView !== "main") {
+    setMobileView("main")
+  }
+
+  const [overlayHeight, setOverlayHeight] = useState(0)
+
   useEffect(() => {
-    if (!isMobile && mobileView !== "main") {
-      setMobileView("main")
+    if (toolbarRef.current) {
+      setOverlayHeight(toolbarRef.current.getBoundingClientRect().height)
     }
-  }, [isMobile, mobileView])
+  }, [])
 
   const rect = useCursorVisibility({
     editor,
-    overlayHeight: toolbarRef.current?.getBoundingClientRect().height ?? 0,
+    overlayHeight,
   })
 
   return (

@@ -7,16 +7,14 @@ import "./login.css";
 
 function AuthScreen({
   onLogin,
-  email,
-  setEmail,
+
   password,
   setPassword,
   error,
   loading,
 }: {
   onLogin: (e: React.FormEvent<HTMLFormElement>) => void | Promise<void>;
-  email: string;
-  setEmail: (v: string) => void;
+
   password: string;
   setPassword: (v: string) => void;
   error: string;
@@ -47,7 +45,7 @@ function AuthScreen({
 }
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
+  const email = "";
   const [password, setPassword] = useState("");
   const [authError, setAuthError] = useState("");
   const [authLoading, setAuthLoading] = useState(false);
@@ -82,8 +80,7 @@ export default function LoginPage() {
   return (
     <AuthScreen
       onLogin={handleSubmit}
-      email={email}
-      setEmail={setEmail}
+
       password={password}
       setPassword={setPassword}
       error={authError}

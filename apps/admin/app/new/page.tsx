@@ -38,7 +38,7 @@ export default function NewArticlePage() {
   const [fileToUpload, setFileToUpload] = useState<File | null>(null);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+
 
   // ── Helpers ───────────────────────────────────────────────────────────────
 
@@ -79,7 +79,7 @@ export default function NewArticlePage() {
     }
     setSaving(true);
     setError("");
-    setSuccess("");
+    setError("");
 
     try {
       const processedContent = await processArticleImages(

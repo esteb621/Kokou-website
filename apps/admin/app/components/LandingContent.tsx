@@ -1,6 +1,6 @@
 "use client";
 
-import { siGumroad, siTiktok } from "simple-icons";
+
 import { motion, type Easing } from "motion/react";
 import GradientText from "@/components/GradientText";
 import { Config } from "@/lib/types";
@@ -20,7 +20,18 @@ const fadeUp = {
   }),
 };
 
-const Products: React.FC<{ category: any[]; index: number }> = ({
+const Products: React.FC<{
+  category: Array<{
+    priority?: number;
+    link?: string;
+    image?: string;
+    title?: string;
+    review?: string | number;
+    description?: string;
+    price?: string | number;
+  }>;
+  index: number;
+}> = ({
   category,
   index,
 }) => {
@@ -28,7 +39,7 @@ const Products: React.FC<{ category: any[]; index: number }> = ({
     (a, b) => (a.priority || 99) - (b.priority || 99),
   );
 
-  return sortedCategory.map((product: any, j: number) => (
+  return sortedCategory.map((product, j: number) => (
     <motion.a
       key={j}
       href={product.link}
@@ -41,6 +52,7 @@ const Products: React.FC<{ category: any[]; index: number }> = ({
     >
       <div className="relative flex flex-col h-full w-full">
         <div className="w-full h-60 shrink-0">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={product.image}
             alt={product.title}
@@ -271,7 +283,7 @@ export default function LandingContent({ config }: { config: Config }) {
           </a>
         </div>
 
-        {Object.keys(config.products).map((category: any, i) => (
+        {Object.keys(config.products).map((category: string, i) => (
           <div key={category} className="mb-12">
             <div className="flex items-center gap-3 my-6">
               <span className="flex-1 h-[1.5px] bg-gradient-to-r from-bg-accent to-bg-accent/30 rounded" />
