@@ -4,7 +4,13 @@
   "scripts": {
     "dev": "pnpm --filter \"apps/*\" run dev",
     "build": "pnpm --filter \"apps/*\" run build",
-    "start": "pnpm --filter \"apps/*\" run start"
+    "start": "pnpm --filter \"apps/*\" run start",
+    "dev:public": "pnpm --filter public run dev",
+    "build:public": "pnpm --filter public run build",
+    "start:public": "pnpm --filter public run start",
+    "dev:admin": "pnpm --filter admin run dev",
+    "build:admin": "pnpm --filter admin run build",
+    "start:admin": "pnpm --filter admin run start"
   },
   "packageManager": "pnpm@10.11.1"
 }

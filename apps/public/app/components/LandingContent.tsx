@@ -51,7 +51,7 @@ const Products: React.FC<{ category: any[]; index: number }> = ({
 
   return sortedCategory.map((product: any, j: number) => (
     <motion.a
-      key={product.title}
+      key={j}
       href={product.link}
       target="_blank"
       rel="noopener noreferrer"
