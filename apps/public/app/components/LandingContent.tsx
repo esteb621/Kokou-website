@@ -71,6 +71,7 @@ const Products: React.FC<{ category: any[]; index: number }> = ({
             variant="secondary"
             className="rounded-lg text-lg px-2 py-4 flex justify-center shadow-2xl"
           >
+            {/* @ts-ignore */}
             <StarIcon />
             {product.review}
           </Badge>
