@@ -17,13 +17,13 @@ import { getConfigFile } from "@/lib/supabase";
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: "Kokou",
-    template: "%s | Kokou",
+    default: "Kokou admin",
+    template: "%s | Kokou admin",
   },
-  description: "This is my portfolio.",
+  description: "Kokou's Admin Dashboard",
   openGraph: {
-    title: "Kokou",
-    description: "This is my portfolio.",
+    title: "Kokou admin",
+    description: "Kokou's Admin Dashboard",
     url: baseUrl,
     siteName: "Kokou",
     locale: "en_US",

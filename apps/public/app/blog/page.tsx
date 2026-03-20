@@ -1,6 +1,6 @@
 import { BlogPosts } from "@/app/components/posts";
 
-export const revalidate = 60;
+export const revalidate = 30;
 
 export const metadata = {
   title: "Blog",

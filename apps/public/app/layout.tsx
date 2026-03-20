@@ -24,8 +24,8 @@ export async function generateMetadata(): Promise<Metadata> {
     config = { hero: { title: "Kokou", subtitle: "This is my portfolio." } };
   }
 
-  const title = config?.hero?.title?.split(" ")?.slice(0, 2)?.join(" ") || "Kokou";
-  const subtitle = config?.hero?.subtitle || "Portfolio and creations by Kokou.";
+  const title = "Kokou Portfolio";
+  const subtitle = "Portfolio and creations by Kokou.";
 
   return {
     metadataBase: new URL(baseUrl),

@@ -8,6 +8,7 @@ import { PlusIcon, RefreshCcw, Settings, TrashIcon } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import toast from "react-hot-toast";
 
+export const revalidate = 30;
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
 function formatDate(dateStr: string): string {

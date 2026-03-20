@@ -3,7 +3,7 @@ import { getArticleBySlug, getPublishedArticles } from "@/lib/supabase";
 import { baseUrl } from "@/app/sitemap";
 import { BackButton } from "@/components/BackButton";
 
-export const revalidate = 60;
+export const revalidate = 30;
 
 export async function generateStaticParams() {
   try {
