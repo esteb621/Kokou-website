@@ -6,12 +6,7 @@ import GradientText from "@/components/GradientText";
 import { Config } from "@/lib/types";
 import { Icon } from "@iconify/react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card";
 import { CardHeader } from "@/components/ui/card";
 import { StarIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -30,7 +25,7 @@ const Products: React.FC<{ category: any[]; index: number }> = ({
   index,
 }) => {
   const sortedCategory = [...category].sort(
-    (a, b) => (a.priority || 99) - (b.priority || 99)
+    (a, b) => (a.priority || 99) - (b.priority || 99),
   );
 
   return sortedCategory.map((product: any, j: number) => (
@@ -110,7 +105,7 @@ export default function LandingContent({ config }: { config: Config }) {
           variants={fadeUp}
         >
           {/* Take all text expect last element */}
-          {config.hero.title.split(" ").slice(0, -1).join(" ") + " "} 
+          {config.hero.title.split(" ").slice(0, -1).join(" ") + " "}
           <GradientText
             showBorder={false}
             animationSpeed={8}
@@ -149,7 +144,10 @@ export default function LandingContent({ config }: { config: Config }) {
             rel="noopener noreferrer"
             className="flex items-center gap-2 bg-accent hover:bg-text-primary text-white px-4 py-2 rounded-xl font-semibold text-sm transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
           >
-            <Icon icon="material-symbols:shopping-cart-outline" className="w-5 h-5"/>
+            <Icon
+              icon="material-symbols:shopping-cart-outline"
+              className="w-5 h-5"
+            />
             Shop on Jinxxy
           </a>
         </motion.div>
@@ -288,7 +286,12 @@ export default function LandingContent({ config }: { config: Config }) {
               className="grid grid-cols-1 md:grid-cols-2 gap-4"
               key={category}
             >
-              <Products category={config.products[category as keyof typeof config.products]} index={i} />
+              <Products
+                category={
+                  config.products[category as keyof typeof config.products]
+                }
+                index={i}
+              />
             </div>
           </div>
         ))}

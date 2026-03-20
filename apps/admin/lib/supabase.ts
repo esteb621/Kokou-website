@@ -13,17 +13,17 @@ function getStaticSupabase() {
   );
 }
 
-export async function getConfigFile(fileName: string): Promise<any> {
+export async function getConfigFile<T = unknown>(fileName: string): Promise<T> {
   const sb = getStaticSupabase();
   const { data, error } = await sb.storage
     .from("website_json")
     .download(fileName);
   if (error) throw new Error(error.message);
   const json = await data.text();
-  return JSON.parse(json);
+  return JSON.parse(json) as T;
 }
 
-export async function updateConfigFile(fileName: string, content: any): Promise<void> {
+export async function updateConfigFile(fileName: string, content: unknown): Promise<void> {
   const sb = await getSupabase();
   const { error } = await sb.storage
     .from("website_json")

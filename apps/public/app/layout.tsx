@@ -14,33 +14,50 @@ import AnimatedContent from "@/components/AnimatedContent";
 import { Colors } from "@/lib/types";
 import { getConfigFile } from "@/lib/supabase";
 
-export const metadata: Metadata = {
-  metadataBase: new URL(baseUrl),
-  title: {
-    default: "Kokou",
-    template: "%s | Kokou",
-  },
-  description: "This is my portfolio.",
-  openGraph: {
-    title: "Kokou",
-    description: "This is my portfolio.",
-    url: baseUrl,
-    siteName: "Kokou",
-    locale: "en_US",
-    type: "website",
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
+export async function generateMetadata(): Promise<Metadata> {
+  let config: any;
+  try {
+    config = await getConfigFile("config.json");
+  } catch (e) {
+    config = { hero: { title: "Kokou", subtitle: "This is my portfolio." } };
+  }
+
+  const title = config?.hero?.title?.split(" ")?.slice(0, 2)?.join(" ") || "Kokou";
+  const subtitle = config?.hero?.subtitle || "Portfolio and creations by Kokou.";
+
+  return {
+    metadataBase: new URL(baseUrl),
+    title: {
+      default: title,
+      template: `%s | ${title}`,
+    },
+    description: subtitle,
+    openGraph: {
+      title: title,
+      description: subtitle,
+      url: baseUrl,
+      siteName: title,
+      locale: "en_US",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: title,
+      description: subtitle,
+    },
+    robots: {
       index: true,
       follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
     },
-  },
-};
+  };
+}
 
 export default async function RootLayout({
   children,
@@ -84,7 +101,7 @@ export default async function RootLayout({
         <meta name="apple-mobile-web-app-title" content="Kokou" />
       </head>
       <body className="mt-24 md:mt-40 mx-auto w-full min-h-screen h-full relative">
-        <main className="isolate max-w-4xl mx-auto min-w-0 h-full relative z-10 flex flex-col px-2 md:px-0 items-center">
+        <main className="isolate lg:w-2/3 max-w-7xl mx-auto min-w-0 h-full relative z-10 flex flex-col px-2 md:px-0 items-center">
           <AnimatedContent
             className="z-1000 w-full mx-auto"
             distance={100}

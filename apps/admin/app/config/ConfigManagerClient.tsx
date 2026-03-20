@@ -24,7 +24,7 @@ export default function ConfigManagerClient({
 
   const getCleanConfig = () => {
     const clean = JSON.parse(JSON.stringify(config));
-    
+
     if (clean.socials) {
       for (const key in clean.socials) {
         if (clean.socials[key]._deleted) {
@@ -34,21 +34,30 @@ export default function ConfigManagerClient({
         }
       }
     }
-    
+
     if (clean.skills) {
-      clean.skills = clean.skills.filter((s: any) => !s._deleted).map((s: any) => {
-        const { _, ...rest } = s; return rest;
-      });
+      clean.skills = clean.skills
+        .filter((s: any) => !s._deleted)
+        .map((s: any) => {
+          const { _, ...rest } = s;
+          return rest;
+        });
     }
     if (clean.products?.avatars) {
-      clean.products.avatars = clean.products.avatars.filter((p: any) => !p._deleted).map((p: any) => {
-        const { _, ...rest } = p; return rest;
-      });
+      clean.products.avatars = clean.products.avatars
+        .filter((p: any) => !p._deleted)
+        .map((p: any) => {
+          const { _, ...rest } = p;
+          return rest;
+        });
     }
     if (clean.products?.assets) {
-      clean.products.assets = clean.products.assets.filter((p: any) => !p._deleted).map((p: any) => {
-        const { _, ...rest } = p; return rest;
-      });
+      clean.products.assets = clean.products.assets
+        .filter((p: any) => !p._deleted)
+        .map((p: any) => {
+          const { _, ...rest } = p;
+          return rest;
+        });
     }
     return clean;
   };
@@ -89,7 +98,7 @@ export default function ConfigManagerClient({
   return (
     <div className="pb-20 max-w-5xl mx-auto mt-10">
       <div className="flex items-center justify-between mb-8">
-        <BackButton path="/"/>
+        <BackButton path="/" />
         <h1 className="text-3xl font-bold">Edit website config</h1>
         <div className="flex gap-4">
           <Button

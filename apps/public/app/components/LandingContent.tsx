@@ -6,12 +6,7 @@ import GradientText from "@/components/GradientText";
 import { Config } from "@/lib/types";
 import { Icon } from "@iconify/react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card";
 import { CardHeader } from "@/components/ui/card";
 import { StarIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -46,7 +41,7 @@ const Products: React.FC<{ category: any[]; index: number }> = ({
   index,
 }) => {
   const sortedCategory = [...category].sort(
-    (a, b) => (a.priority || 99) - (b.priority || 99)
+    (a, b) => (a.priority || 99) - (b.priority || 99),
   );
 
   return sortedCategory.map((product: any, j: number) => (
@@ -126,7 +121,7 @@ export default function LandingContent({ config }: { config: Config }) {
           variants={fadeUp}
         >
           {/* Take all text expect last element */}
-          {config.hero.title.split(" ").slice(0, -1).join(" ") + " "} 
+          {config.hero.title.split(" ").slice(0, -1).join(" ") + " "}
           <GradientText
             showBorder={false}
             animationSpeed={8}
@@ -165,7 +160,10 @@ export default function LandingContent({ config }: { config: Config }) {
             rel="noopener noreferrer"
             className="flex items-center gap-2 bg-accent hover:bg-text-primary text-white px-4 py-2 rounded-xl font-semibold text-sm transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
           >
-            <Icon icon="material-symbols:shopping-cart-outline" className="w-5 h-5"/>
+            <Icon
+              icon="material-symbols:shopping-cart-outline"
+              className="w-5 h-5"
+            />
             Shop on Jinxxy
           </a>
         </motion.div>
@@ -177,6 +175,51 @@ export default function LandingContent({ config }: { config: Config }) {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5, duration: 0.4 }}
       ></motion.div>
+      {/* ── Featured Jinxxy Products ── */}
+      <motion.div
+        className="flex flex-col gap-4"
+        initial="hidden"
+        animate="visible"
+        custom={6}
+        variants={fadeUp}
+      >
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <span className="h-[1.5px] w-6 bg-primary rounded" />
+            <span className="text-primary text-xs tracking-widest uppercase font-semibold">
+              Featured Jinxxy Products
+            </span>
+          </div>
+          <a
+            href="https://jinxxy.com/Kokou"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-md font-semibold text-primary hover:underline flex items-center gap-1"
+          >
+            See all <span>→</span>
+          </a>
+        </div>
+
+        {Object.keys(config.products).map((category: any, i) => (
+          <div key={category} className="mb-12">
+            <div className="flex items-center gap-3 my-6">
+              <span className="flex-1 h-[1.5px] bg-gradient-to-r from-bg-accent to-bg-accent/30 rounded" />
+              <span className="text-bg-accent text-xl font-semibold">
+                {String(category).charAt(0).toUpperCase() +
+                  String(category).slice(1)}
+              </span>
+              <span className="flex-1 h-[1.5px] bg-gradient-to-l from-bg-accent/50 to-bg-accent/30 rounded" />
+            </div>
+
+            <div
+              className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-4"
+              key={category}
+            >
+              <Products category={config.products[category]} index={i} />
+            </div>
+          </div>
+        ))}
+      </motion.div>
       {/* Social links */}
       <motion.div
         className="flex flex-col gap-4"
@@ -262,52 +305,6 @@ export default function LandingContent({ config }: { config: Config }) {
             </motion.div>
           ))}
         </div>
-      </motion.div>
-
-      {/* ── Featured Jinxxy Products ── */}
-      <motion.div
-        className="flex flex-col gap-4"
-        initial="hidden"
-        animate="visible"
-        custom={6}
-        variants={fadeUp}
-      >
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <span className="h-[1.5px] w-6 bg-primary rounded" />
-            <span className="text-primary text-xs tracking-widest uppercase font-semibold">
-              Featured Jinxxy Products
-            </span>
-          </div>
-          <a
-            href="https://jinxxy.com/Kokou"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-md font-semibold text-primary hover:underline flex items-center gap-1"
-          >
-            See all <span>→</span>
-          </a>
-        </div>
-
-        {Object.keys(config.products).map((category: any, i) => (
-          <div key={category} className="mb-12">
-            <div className="flex items-center gap-3 my-6">
-              <span className="flex-1 h-[1.5px] bg-gradient-to-r from-bg-accent to-bg-accent/30 rounded" />
-              <span className="text-bg-accent text-xl font-semibold">
-                {String(category).charAt(0).toUpperCase() +
-                  String(category).slice(1)}
-              </span>
-              <span className="flex-1 h-[1.5px] bg-gradient-to-l from-bg-accent/50 to-bg-accent/30 rounded" />
-            </div>
-
-            <div
-              className="grid grid-cols-1 md:grid-cols-2 gap-4"
-              key={category}
-            >
-              <Products category={config.products[category]} index={i} />
-            </div>
-          </div>
-        ))}
       </motion.div>
     </section>
   );

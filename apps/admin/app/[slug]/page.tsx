@@ -5,10 +5,7 @@ import { useState, useCallback, useEffect } from "react";
 import type { Article } from "@/lib/types";
 import { createClient } from "@/utils/supabase/client";
 const supabase = createClient();
-import { Input } from "@/components/ui/input";
-import { SimpleEditor } from "@/components/tiptap-templates/simple/simple-editor";
 import { processArticleImages } from "@/lib/tiptap-utils";
-import { Send, SquarePen, Trash } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { EditorView } from "@/components/EditorView";
 import toast from "react-hot-toast";
@@ -18,7 +15,7 @@ import toast from "react-hot-toast";
 export default function EditArticlePage() {
   const params = useParams();
   const router = useRouter();
-  const articleSlug = params.slug as string;
+  const articleSlug = params?.slug as string;
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -110,17 +107,17 @@ export default function EditArticlePage() {
       const processedContent = await processArticleImages(
         form.content,
         originalContent,
-        articleSlug
+        articleSlug,
       );
 
       const payload = {
         ...form,
         content: processedContent,
         posted: asDraft ? false : true,
-      created_at: form.created_at
-        ? form.created_at.slice(0, 10)
-        : new Date().toISOString().slice(0, 10),
-    };
+        created_at: form.created_at
+          ? form.created_at.slice(0, 10)
+          : new Date().toISOString().slice(0, 10),
+      };
 
       if (fileToUpload) {
         const publicUrl = await uploadToSupabase(fileToUpload, articleSlug);
@@ -136,7 +133,7 @@ export default function EditArticlePage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Server error");
       toast.success(asDraft ? "Saved as draft!" : "Article updated!");
-      router.push("/")
+      router.push("/");
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Unknown error");
     } finally {
@@ -187,4 +184,3 @@ export default function EditArticlePage() {
     </div>
   );
 }
-
