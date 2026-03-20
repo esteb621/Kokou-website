@@ -57,7 +57,7 @@ export default function ConfigManagerClient({
     setIsSaving(true);
     try {
       // Configuration save
-      const resConfig = await fetch("/api/config", {
+      const resConfig = await fetch("/api/config?file=config.json", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(getCleanConfig()),
@@ -65,6 +65,17 @@ export default function ConfigManagerClient({
 
       if (!resConfig.ok) {
         throw new Error("Failed to save configuration");
+      }
+
+      // Colors save
+      const resColors = await fetch("/api/config?file=colors.json", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(colors),
+      });
+
+      if (!resColors.ok) {
+        throw new Error("Failed to save colors palette");
       }
 
       toast.success("Configuration saved successfully!");

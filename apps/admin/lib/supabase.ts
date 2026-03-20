@@ -27,7 +27,10 @@ export async function updateConfigFile(fileName: string, content: any): Promise<
   const sb = await getSupabase();
   const { error } = await sb.storage
     .from("website_json")
-    .update(fileName, JSON.stringify(content));
+    .upload(fileName, JSON.stringify(content), {
+      contentType: "application/json",
+      upsert: true,
+    });
   if (error) throw new Error(error.message);
 }
 

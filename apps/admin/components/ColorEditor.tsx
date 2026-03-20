@@ -4,11 +4,7 @@ import { Field, FieldLabel } from "./ui/field";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import {
-  ArrowBigLeftDashIcon,
-  Trash2,
-  Undo2,
   Undo2Icon,
-  UndoIcon,
 } from "lucide-react";
 
 export default function ColorEditor({

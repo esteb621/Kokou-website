@@ -34,10 +34,10 @@ function AuthScreen({
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
-            className="auth-input"
+            className="bg-secondary p-4 rounded-xl border-none text-pink-800"
           />
-          {error && <p className="auth-error">{error}</p>}
-          <button type="submit" className="auth-btn" disabled={loading}>
+          {error && <p className="text-lg">{error}</p>}
+          <button type="submit" className="bg-accent/80 cursor-pointer hover:bg-accent hover:shadow-2xl py-2 px-4 rounded-xl w-fit mx-auto   border-none text-pink-100" disabled={loading}>
             {loading ? "Checking…" : "Access"}
           </button>
         </form>
