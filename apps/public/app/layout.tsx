@@ -14,7 +14,7 @@ import AnimatedContent from "@/components/AnimatedContent";
 import { Colors } from "@/lib/types";
 import { getConfigFile } from "@/lib/supabase";
 
-export const revalidate = 60; // Revalider le cache toutes les 60 secondes
+export const revalidate = 30; // Revalider le cache toutes les 60 secondes
 
 export async function generateMetadata(): Promise<Metadata> {
   let config: any;
@@ -90,14 +90,16 @@ export default async function RootLayout({
         GeistSans.variable,
         GeistMono.variable,
       )}
-      style={{
-        "--primary": colors.primary,
-        "--secondary": colors.secondary,
-        "--accent": colors.accent,
-        "--background": colors.background,
-        "--text-primary": colors.text_primary,
-        "--text-secondary": colors.text_secondary,
-      } as React.CSSProperties}
+      style={
+        {
+          "--primary": colors.primary,
+          "--secondary": colors.secondary,
+          "--accent": colors.accent,
+          "--background": colors.background,
+          "--text-primary": colors.text_primary,
+          "--text-secondary": colors.text_secondary,
+        } as React.CSSProperties
+      }
     >
       <head>
         <meta name="apple-mobile-web-app-title" content="Kokou" />
@@ -193,30 +195,30 @@ export default async function RootLayout({
           alt="Under leaf"
         />
         <div className="fixed top-0 left-0 w-full h-full z-0">
-  <Grainient
-    color1="#1fe5ff"
-    color2="#008ae0"
-    color3="#00e096"
-    timeSpeed={1}
-    colorBalance={-0.19}
-    warpStrength={1}
-    warpFrequency={12}
-    warpSpeed={1.4}
-    warpAmplitude={40}
-    blendAngle={3}
-    blendSoftness={0}
-    rotationAmount={0}
-    noiseScale={0}
-    grainAmount={0}
-    grainScale={2}
-    grainAnimated={false}
-    contrast={1.5}
-    gamma={1.15}
-    saturation={1.9}
-    centerX={0}
-    centerY={0}
-    zoom={1}
-  />
+          <Grainient
+            color1="#1fe5ff"
+            color2="#008ae0"
+            color3="#00e096"
+            timeSpeed={1}
+            colorBalance={-0.19}
+            warpStrength={1}
+            warpFrequency={12}
+            warpSpeed={1.4}
+            warpAmplitude={40}
+            blendAngle={3}
+            blendSoftness={0}
+            rotationAmount={0}
+            noiseScale={0}
+            grainAmount={0}
+            grainScale={2}
+            grainAnimated={false}
+            contrast={1.5}
+            gamma={1.15}
+            saturation={1.9}
+            centerX={0}
+            centerY={0}
+            zoom={1}
+          />
         </div>
       </body>
     </html>
