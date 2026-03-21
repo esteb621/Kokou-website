@@ -104,7 +104,7 @@ export default async function RootLayout({
       <head>
         <meta name="apple-mobile-web-app-title" content="Kokou" />
       </head>
-      <body className="mt-24 md:mt-40 mx-auto w-full min-h-screen h-full relative">
+      <body className="mt-24 md:mt-36 mx-auto w-full min-h-screen overflow-y-hidden h-full relative">
         <main className="isolate lg:w-2/3 max-w-7xl mx-auto min-w-0 h-full relative z-10 flex flex-col px-2 md:px-0 items-center">
           <AnimatedContent
             className="z-1000 w-full mx-auto"
