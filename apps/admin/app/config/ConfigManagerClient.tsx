@@ -91,6 +91,7 @@ export default function ConfigManagerClient({
       }
 
       toast.success("Configuration saved successfully!");
+      setConfig(getCleanConfig());
     } catch (error) {
       console.error(error);
       toast.error("An error occurred while saving: " + error);

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
 import { getConfigFile, updateConfigFile } from "@/lib/supabase";
+import { revalidatePath } from "next/cache";
 
 export async function GET(req: NextRequest) {
   try {
@@ -40,6 +41,8 @@ async function handleUpdate(req: NextRequest) {
     }
 
     await updateConfigFile(file, body);
+    
+    revalidatePath("/config");
     
     return NextResponse.json(
       { message: "Configuration updated successfully", file: file },

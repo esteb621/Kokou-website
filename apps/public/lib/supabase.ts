@@ -1,12 +1,17 @@
-import fs from "fs";
-import path from "path";
 import { createClient as createStaticClient } from "@supabase/supabase-js";
 import { Article } from "./types";
 
 export function getStaticSupabase() {
   return createStaticClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL || "",
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY || ""
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY || "",
+    {
+      global: {
+        fetch: (url, options) => {
+          return fetch(url, { ...options, cache: "no-store", next: { revalidate: 0 } });
+        },
+      },
+    }
   );
 }
 

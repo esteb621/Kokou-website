@@ -29,7 +29,7 @@ export default function ConfigEditor({
   };
 
   const addSocial = () => {
-    const newKey = `social_${Object.keys(config.socials).length + 1}`;
+    const newKey = `social_${Date.now()}`;
     setConfig({
       ...config,
       socials: {
