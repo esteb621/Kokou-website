@@ -17,7 +17,7 @@ This repository uses a monorepo architecture powered by **pnpm workspaces**, div
 - **Framework**: [Next.js 16](https://nextjs.org/) (React 19)
 - **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
 - **Backend/Database**: [Supabase](https://supabase.com/) (SSR & JS Client)
-- **Deployment**: [Cloudflare Workers](https://cloudflare.com/) via OpenNext (`@opennextjs/cloudflare`)
+- **Deployment**: [Netlify](https://netlify.app/)
 - **Animations**: [Framer Motion](https://www.framer.com/motion/), [GSAP](https://gsap.com/)
 - **Package Manager**: [pnpm](https://pnpm.io/)
 
@@ -37,7 +37,7 @@ This repository uses a monorepo architecture powered by **pnpm workspaces**, div
 1. **Content Management**: An authorized user logs into the **Admin Site**. Here, they can write blog posts using the Tiptap editor, upload images, and tweak site-wide configuration settings (like SEO metadata, URLs, and theming) via the custom editor components.
 2. **Data Persistence**: All content, media, and configurations are securely stored in a **Supabase** project using Postgres tables and Supabase Storage.
 3. **Public Display**: The **Public Site** fetches the latest published content and configurations directly from Supabase, rendering optimized and animated pages for the end user.
-4. **Cloudflare Deployment**: Both applications are configured to be built and deployed efficiently at the edge using Cloudflare via `opennextjs-cloudflare`, providing extremely low latency and fast SSR performance globally.
+4. **Netlify Deployment**: Both applications are configured to be built and deployed automatticaly using Netlify.
 5. **Docker Containerization**: The Admin site features an integrated `docker-compose.yml` and `Dockerfile`, allowing it to be easily self-hosted, deployed to a VPS, or run locally as an isolated service.
 
 ## 🛠 Getting Started
@@ -47,7 +47,6 @@ This repository uses a monorepo architecture powered by **pnpm workspaces**, div
 - Node.js (v20+)
 - [pnpm](https://pnpm.io/)
 - A [Supabase](https://supabase.com/) project integration
-- Cloudflare Wrangler (for edge deployments)
 
 ### Installation
 
