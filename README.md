@@ -1,42 +1,74 @@
-# Portfolio Blog Starter
+# Kokou Website
 
-This is a porfolio site template complete with a blog. Includes:
+A modern, full-stack monorepo application containing a highly interactive public-facing portfolio/blog and a powerful administrative dashboard to manage content.
 
-- MDX and Markdown support
-- Optimized for SEO (sitemap, robots, JSON-LD schema)
-- RSS Feed
-- Dynamic OG images
-- Syntax highlighting
-- Tailwind v4
-- Vercel Speed Insights / Web Analytics
-- Geist font
+## 🏗 Overview
 
-## Demo
+This repository uses a monorepo architecture powered by **pnpm workspaces**, divided into two primary Next.js applications:
 
-https://portfolio-blog-starter.vercel.app
+1. **Public Site (`apps/public`)**:
+   The main frontend of the site, built for speed and aesthetics. It features advanced animations, dynamic SEO configurations driven by Supabase, and MDX/Markdown capabilities. The public site is designed for high performance and smooth user experiences using tools like Framer Motion and GSAP.
 
-## How to Use
+2. **Admin Site (`apps/admin`)**:
+   A secure dashboard for managing the site's content, configurations, and settings. It features a rich text editing experience, visual configuration editors, and seamless integration with Supabase for data management and persistence.
 
-You can choose from one of the following two methods to use this repository:
+## 💻 Tech Stack
 
-### One-Click Deploy
+- **Framework**: [Next.js 16](https://nextjs.org/) (React 19)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
+- **Backend/Database**: [Supabase](https://supabase.com/) (SSR & JS Client)
+- **Deployment**: [Cloudflare Workers](https://cloudflare.com/) via OpenNext (`@opennextjs/cloudflare`)
+- **Animations**: [Framer Motion](https://www.framer.com/motion/), [GSAP](https://gsap.com/)
+- **Package Manager**: [pnpm](https://pnpm.io/)
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=vercel-examples):
+## ✨ Key Components
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/examples/tree/main/solutions/blog&project-name=blog&repository-name=blog)
+### Public Site Components
+- **Visual & Interactive UI**: Custom components such as `AnimatedContent`, `BlurText`, `GradientText`, `Grainient` (animated gradient backgrounds), `GridMotion`, `Masonry` (for images and grids), `PillNav`, and `TiltedCard` work together to create a striking, premium user experience.
+- **Shadcn UI**: Leveraged for accessible, consistent, and customizable base UI elements structure.
 
-### Clone and Deploy
+### Admin Site Components
+- **Tiptap Rich Text Editor**: A highly customized implementation of [@tiptap/core](https://tiptap.dev/) used for writing and formatting complex content. It includes extensions for images, text alignment, highlights, and custom templates.
+- **ConfigEditor & ColorEditor**: Dedicated interfaces to dynamically update application configurations, SEO parameters, social links, and branding colors that apply directly to the public site.
+- **Authentication Guard**: Secured routes utilizing `@supabase/ssr` to ensure only authorized administrators can access the dashboard.
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [pnpm](https://pnpm.io/installation) to bootstrap the example:
+## 🚀 How It Works
 
+1. **Content Management**: An authorized user logs into the **Admin Site**. Here, they can write blog posts using the Tiptap editor, upload images, and tweak site-wide configuration settings (like SEO metadata, URLs, and theming) via the custom editor components.
+2. **Data Persistence**: All content, media, and configurations are securely stored in a **Supabase** project using Postgres tables and Supabase Storage.
+3. **Public Display**: The **Public Site** fetches the latest published content and configurations directly from Supabase, rendering optimized and animated pages for the end user.
+4. **Cloudflare Deployment**: Both applications are configured to be built and deployed efficiently at the edge using Cloudflare via `opennextjs-cloudflare`, providing extremely low latency and fast SSR performance globally.
+5. **Docker Containerization**: The Admin site features an integrated `docker-compose.yml` and `Dockerfile`, allowing it to be easily self-hosted, deployed to a VPS, or run locally as an isolated service.
+
+## 🛠 Getting Started
+
+### Prerequisites
+
+- Node.js (v20+)
+- [pnpm](https://pnpm.io/)
+- A [Supabase](https://supabase.com/) project integration
+- Cloudflare Wrangler (for edge deployments)
+
+### Installation
+
+1. Clone the repository and install dependencies:
 ```bash
-pnpm create next-app --example https://github.com/vercel/examples/tree/main/solutions/blog blog
+pnpm install
 ```
 
-Then, run Next.js in development mode:
+2. Set up your environment variables based on existing configurations in both `apps/public` and `apps/admin`. You'll need properly configured Supabase environment variables (URL and anon/publishable keys).
 
+3. Start the development environment for both apps simultaneously:
 ```bash
 pnpm dev
 ```
+*(Alternatively, run `pnpm dev:public` or `pnpm dev:admin` to run them individually).*
 
-Deploy it to the cloud with [Vercel](https://vercel.com/templates) ([Documentation](https://nextjs.org/docs/app/building-your-application/deploying)).
+### Docker Compose (Admin)
+
+To run the admin interface via Docker efficiently:
+
+```bash
+docker-compose up -d
+```
+*Note: Ensure your `apps/admin/.env.local` contains the required variables like `NEXT_PUBLIC_SUPABASE_URL` and `ADMIN_EMAIL` before building the image.*
